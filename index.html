@@ -3,1140 +3,828 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Model Registry — Every Company Training Original Foundation Models</title>
+  <title>AI Model Registry — Global Foundation Model Intelligence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    /* =============================================
-       APPLE DESIGN SYSTEM — Extracted from apple.com
-       Colors: #1d1d1d (dark base), #f5f5f7 (light alt)
-       Nav: 44px, frosted glass, backdrop-filter: blur(20px)
-       Typography: SF Pro approximated via Inter
-       Animations: 600-800ms ease-out, 50-100ms stagger
-       Section rhythm: dark default, light every 2-4 sections
-       ============================================= */
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
     :root {
-      /* Apple's exact color system */
-      --apple-dark: #1d1d1d;
-      --apple-black: #000000;
-      --apple-light: #f5f5f7;
-      --apple-grey-text: #86868b;
-      --apple-grey-secondary: #a1a1a6;
-      --apple-white: #ffffff;
-      --apple-blue: #2997ff;
-      --apple-blue-hover: #0077ed;
-
-      /* Registry accent colors */
-      --green: #30d158;
-      --green-dim: rgba(48,209,88,0.10);
-      --amber: #ff9f0a;
-      --amber-dim: rgba(255,159,10,0.10);
-      --red: #ff453a;
-      --red-dim: rgba(255,69,58,0.10);
-      --purple: #bf5af2;
-      --purple-dim: rgba(191,90,242,0.10);
-
-      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-      --mono: 'JetBrains Mono', 'SF Mono', monospace;
-      --nav-height: 44px;
-      --section-pad-v: clamp(60px, 10vw, 120px);
-      --section-pad-h: clamp(20px, 5vw, 80px);
-      --content-max: 980px;
-      --content-wide: 1200px;
+      --bg: #080b12;
+      --surface: #0d1117;
+      --surface-2: #131920;
+      --cyan: #00b4ff;
+      --cyan-dim: rgba(0,180,255,0.08);
+      --cyan-glow: rgba(0,180,255,0.25);
+      --green: #00e676;
+      --green-dim: rgba(0,230,118,0.10);
+      --amber: #ffab00;
+      --amber-dim: rgba(255,171,0,0.10);
+      --red: #ff5252;
+      --red-dim: rgba(255,82,82,0.10);
+      --purple: #b388ff;
+      --purple-dim: rgba(179,136,255,0.10);
+      --white: #e8eaed;
+      --grey: #8b949e;
+      --grey-dim: #484f58;
+      --border: rgba(0,180,255,0.08);
+      --font: 'Inter', -apple-system, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
     }
 
-    html {
-      scroll-behavior: smooth;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+    html { -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--font); background: var(--bg); color: var(--white); overflow-x: hidden; }
+
+    /* ===== NAV ===== */
+    .topbar {
+      position: fixed; top:0; left:0; right:0; z-index:100;
+      height: 48px;
+      background: rgba(8,11,18,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px;
     }
-
-    body {
-      font-family: var(--font);
-      background: var(--apple-dark);
-      color: var(--apple-white);
-      line-height: 1.5;
-      overflow-x: hidden;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    /* =============================================
-       NAVIGATION — Apple frosted glass, 44px
-       backdrop-filter: saturate(180%) blur(20px)
-       ============================================= */
-    .globalnav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: var(--nav-height);
-      z-index: 9999;
-      background: rgba(29, 29, 29, 0.72);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 clamp(16px, 4vw, 48px);
-      transition: background 240ms ease;
-    }
-
-    .globalnav-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .globalnav-pulse {
-      width: 7px; height: 7px;
-      border-radius: 50%;
+    .topbar-left { display:flex; align-items:center; gap:10px; }
+    .topbar-logo {
+      width:8px; height:8px; border-radius:50%;
       background: var(--green);
-      box-shadow: 0 0 6px rgba(48,209,88,0.5);
-      animation: pulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      box-shadow: 0 0 8px rgba(0,230,118,0.6);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+    .topbar-title { font-size:13px; font-weight:600; letter-spacing:0.03em; }
+    .topbar-title span { color:var(--grey); font-weight:400; }
+    .topbar-right { display:flex; gap:20px; }
+    .topbar-stat { font-size:11px; font-family:var(--mono); color:var(--grey); }
+    .topbar-stat b { color:var(--cyan); font-weight:500; }
+
+    /* ===== LAYOUT ===== */
+    .app { padding-top: 48px; min-height: 100vh; }
+
+    /* ===== HERO BANNER ===== */
+    .hero-banner {
+      text-align: center;
+      padding: 48px 24px 24px;
+      background: linear-gradient(180deg, rgba(0,180,255,0.03) 0%, transparent 100%);
+    }
+    .hero-banner h1 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .hero-banner h1 .glow {
+      color: var(--cyan);
+      text-shadow: 0 0 40px rgba(0,180,255,0.3);
+    }
+    .hero-banner p {
+      font-size: clamp(13px, 1.3vw, 16px);
+      color: var(--grey);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.5;
     }
 
-    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-    .globalnav-title {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-    }
-
-    .globalnav-version {
-      font-size: 12px;
-      font-weight: 400;
-      color: var(--apple-grey-text);
-      margin-left: 4px;
-    }
-
-    .globalnav-links {
+    /* ===== STATS ROW ===== */
+    .stats-row {
       display: flex;
-      align-items: center;
-      gap: 28px;
-      list-style: none;
+      justify-content: center;
+      gap: 2px;
+      padding: 24px 24px 0;
+      max-width: 900px;
+      margin: 0 auto;
     }
-
-    .globalnav-links a {
-      font-size: 12px;
-      font-weight: 400;
-      color: var(--apple-grey-secondary);
-      transition: color 200ms ease;
-      letter-spacing: 0.01em;
+    .stat-box {
+      flex: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 16px 12px;
+      text-align: center;
     }
-
-    .globalnav-links a:hover { color: var(--apple-white); }
-
-    .globalnav-meta {
-      display: flex; align-items: center; gap: 20px;
-    }
-
-    .globalnav-stat {
-      font-size: 11px;
+    .stat-box:first-child { border-radius: 10px 0 0 10px; }
+    .stat-box:last-child { border-radius: 0 10px 10px 0; }
+    .stat-box .val {
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 700;
       font-family: var(--mono);
-      color: var(--apple-grey-text);
+      color: var(--cyan);
+    }
+    .stat-box .lbl {
+      font-size: 10px;
+      color: var(--grey);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 2px;
     }
 
-    .globalnav-stat strong {
-      color: var(--apple-white);
-      font-weight: 500;
+    /* ===== MAP SECTION ===== */
+    .map-section {
+      position: relative;
+      padding: 32px 24px;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
-    /* =============================================
-       HERO — Full viewport, centered, Apple marquee
-       ============================================= */
-    .hero {
-      min-height: 100vh;
+    .map-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 2/1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: crosshair;
+    }
+
+    .map-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Grid lines */
+    .grid-line { stroke: rgba(0,180,255,0.04); stroke-width: 0.5; }
+    .equator { stroke: rgba(0,180,255,0.08); stroke-width: 0.8; stroke-dasharray: 4 4; }
+
+    /* Continent fills */
+    .continent {
+      fill: rgba(0,180,255,0.06);
+      stroke: rgba(0,180,255,0.15);
+      stroke-width: 0.5;
+      transition: fill 0.3s;
+    }
+
+    /* Company dots */
+    .company-dot {
+      cursor: pointer;
+      transition: r 0.2s ease;
+    }
+    .company-dot:hover { r: 8; }
+
+    .dot-glow {
+      animation: dotPulse 3s ease-in-out infinite;
+    }
+    @keyframes dotPulse { 0%,100%{opacity:0.3;r:12;} 50%{opacity:0.08;r:20;} }
+
+    /* Tooltip */
+    .map-tooltip {
+      position: absolute;
+      pointer-events: none;
+      background: rgba(8,11,18,0.95);
+      border: 1px solid var(--cyan);
+      border-radius: 8px;
+      padding: 12px 16px;
+      max-width: 320px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 50;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5), 0 0 12px rgba(0,180,255,0.1);
+    }
+    .map-tooltip.show { opacity:1; transform:translateY(0); }
+    .tooltip-city { font-size:13px; font-weight:600; color:var(--cyan); margin-bottom:8px; }
+    .tooltip-company {
+      display: flex; align-items: center; gap: 8px;
+      padding: 4px 0;
+      font-size: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .tooltip-company:last-child { border-bottom: none; }
+    .tooltip-company .name { font-weight: 600; flex-shrink: 0; }
+    .tooltip-company .models { font-family: var(--mono); font-size: 10px; color: var(--grey); }
+    .tooltip-tag {
+      display: inline-block;
+      font-size: 8px; font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .tooltip-tag.open { color:var(--green); background:var(--green-dim); }
+    .tooltip-tag.closed { color:var(--red); background:var(--red-dim); }
+    .tooltip-tag.mixed { color:var(--purple); background:var(--purple-dim); }
+    .tooltip-tag.open-weight { color:var(--amber); background:var(--amber-dim); }
+
+    /* Map legend */
+    .map-legend {
+      position: absolute;
+      bottom: 16px; left: 16px;
+      background: rgba(8,11,18,0.9);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: calc(var(--nav-height) + 60px) var(--section-pad-h) var(--section-pad-v);
-      position: relative;
-      background: var(--apple-black);
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 200px;
-      background: linear-gradient(to bottom, transparent, var(--apple-dark));
-      pointer-events: none;
-    }
-
-    .hero-eyebrow {
-      font-size: clamp(12px, 1.2vw, 14px);
-      font-weight: 600;
-      color: var(--apple-grey-text);
-      letter-spacing: 0.5px;
-      margin-bottom: 20px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .hero-eyebrow .dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--green);
-      animation: pulse 2.4s infinite;
-    }
-
-    .hero-headline {
-      font-size: clamp(44px, 7vw, 80px);
-      font-weight: 700;
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-      margin-bottom: 16px;
-      max-width: 900px;
-    }
-
-    .hero-headline .gradient {
-      background: linear-gradient(135deg, var(--apple-blue) 0%, #5ac8fa 50%, var(--purple) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-tagline {
-      font-size: clamp(17px, 2vw, 21px);
-      font-weight: 400;
-      color: var(--apple-grey-secondary);
-      max-width: 540px;
-      line-height: 1.5;
-      margin-bottom: 40px;
-    }
-
-    .hero-ctas {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    /* Apple CTA buttons */
-    .cta-primary {
-      display: inline-flex;
-      align-items: center;
       gap: 6px;
-      font-size: 17px;
-      font-weight: 400;
-      color: var(--apple-white);
-      background: var(--apple-blue);
-      padding: 12px 24px;
-      border-radius: 980px;
-      border: none;
-      cursor: pointer;
-      transition: background 200ms ease, transform 150ms ease;
     }
-
-    .cta-primary:hover {
-      background: var(--apple-blue-hover);
-      transform: scale(1.02);
-    }
-
-    .cta-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 17px;
-      font-weight: 400;
-      color: var(--apple-blue);
-      padding: 12px 8px;
-      transition: color 200ms ease;
-    }
-
-    .cta-secondary:hover { color: #66b3ff; }
-    .cta-secondary .chevron {
-      font-size: 14px;
-      transition: transform 200ms ease;
-    }
-    .cta-secondary:hover .chevron { transform: translateX(3px); }
-
-    /* =============================================
-       STATS — Apple highlights bar
-       ============================================= */
-    .stats-section {
-      background: var(--apple-dark);
-      padding: 0 var(--section-pad-h) var(--section-pad-v);
-    }
-
-    .stats-grid {
-      max-width: var(--content-wide);
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 18px;
-      overflow: hidden;
-    }
-
-    .stat-card {
-      background: rgba(255,255,255,0.03);
-      padding: clamp(28px, 4vw, 48px) clamp(20px, 3vw, 36px);
-      text-align: center;
-      transition: background 300ms ease;
-    }
-
-    .stat-card:hover { background: rgba(255,255,255,0.06); }
-
-    .stat-number {
-      font-size: clamp(36px, 5vw, 56px);
-      font-weight: 700;
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      margin-bottom: 6px;
-    }
-
-    .stat-label {
-      font-size: clamp(11px, 1vw, 13px);
-      font-weight: 400;
-      color: var(--apple-grey-text);
-      letter-spacing: 0.02em;
-    }
-
-    /* =============================================
-       SECTION ALTERNATION — Apple dark/light rhythm
-       ============================================= */
-    .section-dark {
-      background: var(--apple-dark);
-      color: var(--apple-white);
-      padding: var(--section-pad-v) var(--section-pad-h);
-    }
-
-    .section-light {
-      background: var(--apple-light);
-      color: var(--apple-dark);
-      padding: var(--section-pad-v) var(--section-pad-h);
-    }
-
-    .section-black {
-      background: var(--apple-black);
-      color: var(--apple-white);
-      padding: var(--section-pad-v) var(--section-pad-h);
-    }
-
-    .section-inner {
-      max-width: var(--content-wide);
-      margin: 0 auto;
-    }
-
-    .section-header {
-      text-align: center;
-      max-width: 680px;
-      margin: 0 auto clamp(40px, 6vw, 80px);
-    }
-
-    .section-eyebrow {
-      font-size: clamp(12px, 1vw, 14px);
+    .legend-title {
+      font-size: 10px;
       font-weight: 600;
-      color: var(--apple-grey-text);
-      letter-spacing: 0.5px;
-      margin-bottom: 12px;
+      color: var(--grey);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 2px;
+    }
+    .legend-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; color: var(--grey);
+    }
+    .legend-dot {
+      width: 8px; height: 8px; border-radius: 50%;
     }
 
-    .section-light .section-eyebrow { color: var(--apple-grey-text); }
-
-    .section-headline {
-      font-size: clamp(32px, 4.5vw, 56px);
-      font-weight: 700;
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-      margin-bottom: 16px;
-    }
-
-    .section-copy {
-      font-size: clamp(15px, 1.3vw, 17px);
-      font-weight: 400;
-      line-height: 1.53;
-      color: var(--apple-grey-secondary);
-    }
-
-    .section-light .section-copy { color: var(--apple-grey-text); }
-
-    /* =============================================
-       REGISTRY — Search + Filters + Data Table
-       ============================================= */
-    .controls-bar {
-      max-width: var(--content-wide);
-      margin: 0 auto 40px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .search-input {
-      flex: 1;
-      min-width: 260px;
-      padding: 11px 16px 11px 40px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 10px;
-      color: var(--apple-white);
-      font-size: 14px;
-      font-family: var(--font);
-      outline: none;
-      transition: border-color 200ms ease, background 200ms ease;
-    }
-
-    .search-input:focus {
-      border-color: var(--apple-blue);
-      background: rgba(255,255,255,0.08);
-    }
-
-    .search-input::placeholder { color: var(--apple-grey-text); }
-
-    .search-wrap {
-      flex: 1; min-width: 260px; position: relative;
-    }
-
-    .search-wrap::before {
-      content: '';
+    /* Map coordinates display */
+    .map-coords {
       position: absolute;
-      left: 14px; top: 50%;
+      top: 16px; right: 16px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--grey-dim);
+      background: rgba(8,11,18,0.8);
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    /* ===== DETAIL PANEL ===== */
+    .detail-panel {
+      position: fixed;
+      top: 48px; right: -420px;
+      width: 400px; height: calc(100vh - 48px);
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      z-index: 90;
+      overflow-y: auto;
+      transition: right 0.3s cubic-bezier(0.16,1,0.3,1);
+      padding: 24px;
+    }
+    .detail-panel.open { right: 0; }
+    .detail-close {
+      position: absolute; top: 16px; right: 16px;
+      background: none; border: 1px solid var(--border);
+      color: var(--grey); font-size: 18px;
+      width: 32px; height: 32px; border-radius: 8px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .detail-close:hover { border-color: var(--cyan); color: var(--cyan); }
+    .detail-region {
+      font-size: 11px; font-weight: 600;
+      color: var(--cyan); text-transform: uppercase;
+      letter-spacing: 0.06em; margin-bottom: 6px;
+    }
+    .detail-city { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+    .detail-count { font-size: 13px; color: var(--grey); margin-bottom: 24px; }
+    .detail-company {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+    }
+    .detail-company:hover { border-color: rgba(0,180,255,0.2); }
+    .detail-company-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .detail-company-models { font-family: var(--mono); font-size: 11px; color: var(--grey); margin-bottom: 8px; }
+    .detail-company-notes { font-size: 12px; color: var(--grey); }
+    .detail-company-tag {
+      display: inline-block; font-size: 9px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.04em;
+      padding: 3px 8px; border-radius: 4px; margin-top: 8px;
+    }
+    .detail-company-tag.open { color:var(--green); background:var(--green-dim); }
+    .detail-company-tag.closed { color:var(--red); background:var(--red-dim); }
+    .detail-company-tag.mixed { color:var(--purple); background:var(--purple-dim); }
+    .detail-company-tag.open-weight { color:var(--amber); background:var(--amber-dim); }
+
+    /* ===== FILTER BAR ===== */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 24px 8px;
+      flex-wrap: wrap;
+    }
+    .filter-pill {
+      padding: 6px 16px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 980px;
+      color: var(--grey);
+      font-size: 12px; font-weight: 500;
+      font-family: var(--font);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-pill:hover { border-color: rgba(0,180,255,0.3); color: var(--white); }
+    .filter-pill.active { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); }
+
+    /* ===== TABLE SECTION ===== */
+    .table-section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px 24px 80px;
+    }
+    .table-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .table-header h2 {
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .table-header p { font-size: 14px; color: var(--grey); }
+
+    .search-bar {
+      max-width: 480px;
+      margin: 0 auto 32px;
+      position: relative;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 12px 16px 12px 40px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--white);
+      font-size: 14px; font-family: var(--font);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-bar input:focus { border-color: var(--cyan); }
+    .search-bar input::placeholder { color: var(--grey-dim); }
+    .search-icon {
+      position: absolute; left: 14px; top: 50%;
       transform: translateY(-50%);
-      width: 15px; height: 15px;
-      border: 2px solid var(--apple-grey-text);
+      width: 16px; height: 16px;
+      border: 2px solid var(--grey-dim);
       border-radius: 50%;
     }
-
-    .search-wrap::after {
-      content: '';
-      position: absolute;
-      left: 26px; top: 63%;
+    .search-icon::after {
+      content:''; position: absolute;
+      right: -5px; bottom: -5px;
       width: 2px; height: 6px;
-      background: var(--apple-grey-text);
+      background: var(--grey-dim);
       transform: rotate(-45deg);
     }
 
-    .pill-filter {
-      padding: 8px 18px;
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 980px;
-      color: var(--apple-grey-secondary);
-      font-size: 13px;
-      font-weight: 500;
-      font-family: var(--font);
-      cursor: pointer;
-      transition: all 200ms ease;
-      letter-spacing: 0.01em;
+    .region-group { margin-bottom: 40px; }
+    .region-row {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 12px; padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
     }
-
-    .pill-filter:hover {
-      border-color: rgba(255,255,255,0.3);
-      color: var(--apple-white);
-    }
-
-    .pill-filter.active {
-      background: var(--apple-blue);
-      border-color: var(--apple-blue);
-      color: var(--apple-white);
-    }
-
-    /* Table */
-    .region-block { margin-bottom: 56px; }
-
-    .region-title {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .region-title h3 {
-      font-size: 20px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-    }
-
+    .region-row h3 { font-size: 16px; font-weight: 600; }
     .region-badge {
-      font-size: 11px;
-      font-family: var(--mono);
-      font-weight: 500;
-      color: var(--apple-grey-text);
-      background: rgba(255,255,255,0.05);
-      padding: 3px 10px;
-      border-radius: 6px;
+      font-size: 10px; font-family: var(--mono); font-weight: 500;
+      color: var(--cyan);
+      background: var(--cyan-dim);
+      padding: 2px 8px; border-radius: 4px;
     }
 
     table { width: 100%; border-collapse: collapse; }
-
     thead th {
-      text-align: left;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--apple-grey-text);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 10px 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      text-align: left; font-size: 10px; font-weight: 600;
+      color: var(--grey-dim); letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
     }
-
     tbody tr {
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      transition: background 150ms ease;
+      border-bottom: 1px solid rgba(255,255,255,0.02);
+      transition: background 0.15s;
     }
-
-    tbody tr:hover { background: rgba(255,255,255,0.03); }
-
-    td {
-      padding: 16px 14px;
-      font-size: 14px;
-      vertical-align: middle;
+    tbody tr:hover { background: rgba(0,180,255,0.03); }
+    td { padding: 14px 12px; font-size: 13px; }
+    .td-name { font-weight: 600; }
+    .td-model { font-family: var(--mono); font-size: 11px; color: var(--grey); }
+    .td-tag {
+      display:inline-block; font-size:9px; font-weight:600;
+      text-transform:uppercase; letter-spacing:0.04em;
+      padding:3px 8px; border-radius:4px;
     }
+    .td-tag.open { color:var(--green); background:var(--green-dim); }
+    .td-tag.closed { color:var(--red); background:var(--red-dim); }
+    .td-tag.mixed { color:var(--purple); background:var(--purple-dim); }
+    .td-tag.open-weight { color:var(--amber); background:var(--amber-dim); }
+    .td-status { color: var(--green); font-size: 12px; }
+    .td-notes { font-size: 11px; color: var(--grey-dim); max-width: 200px; }
 
-    .td-company { font-weight: 600; white-space: nowrap; letter-spacing: -0.01em; }
-
-    .td-models {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--apple-grey-secondary);
-    }
-
-    .tag {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 6px;
-    }
-
-    .tag-open { color: var(--green); background: var(--green-dim); }
-    .tag-closed { color: var(--red); background: var(--red-dim); }
-    .tag-mixed { color: var(--purple); background: var(--purple-dim); }
-    .tag-open-weight { color: var(--amber); background: var(--amber-dim); }
-
-    .td-status { color: var(--green); font-size: 13px; }
-    .td-notes { font-size: 12px; color: var(--apple-grey-text); max-width: 200px; }
-
-    /* =============================================
-       MARQUEE — Apple split content (alternating)
-       ============================================= */
-    .marquee {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(40px, 6vw, 80px);
-      align-items: center;
-      max-width: var(--content-wide);
-      margin: 0 auto;
-    }
-
-    .marquee-reverse { direction: rtl; }
-    .marquee-reverse > * { direction: ltr; }
-
-    .marquee-text {}
-
-    .marquee-eyebrow {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--apple-grey-text);
-      margin-bottom: 12px;
-      letter-spacing: 0.5px;
-    }
-
-    .marquee-headline {
-      font-size: clamp(28px, 3.5vw, 40px);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      margin-bottom: 16px;
-    }
-
-    .section-light .marquee-headline { color: var(--apple-dark); }
-
-    .marquee-body {
-      font-size: clamp(15px, 1.3vw, 17px);
-      font-weight: 400;
-      line-height: 1.6;
-      color: var(--apple-grey-secondary);
-      margin-bottom: 24px;
-    }
-
-    .section-light .marquee-body { color: var(--apple-grey-text); }
-
-    .marquee-visual {
-      background: rgba(255,255,255,0.03);
-      border-radius: 18px;
-      aspect-ratio: 4/3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .section-light .marquee-visual {
-      background: rgba(0,0,0,0.03);
-      border-color: rgba(0,0,0,0.06);
-    }
-
-    .marquee-visual-content {
-      padding: clamp(20px, 3vw, 40px);
-      width: 100%;
-    }
-
-    /* Mini bar chart inside visual */
-    .mini-bars {
-      display: flex;
-      align-items: flex-end;
-      gap: 6px;
-      height: 140px;
-    }
-
-    .mini-bar {
-      flex: 1;
-      border-radius: 6px 6px 0 0;
-      transition: height 800ms cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-    }
-
-    .mini-bar-label {
-      position: absolute;
-      bottom: -24px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 9px;
-      font-weight: 500;
-      color: var(--apple-grey-text);
-      white-space: nowrap;
-      letter-spacing: 0.02em;
-    }
-
-    /* Donut chart inside visual */
-    .donut-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 32px;
-    }
-
-    .donut-svg { width: 160px; height: 160px; }
-
-    .donut-legend {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--apple-grey-secondary);
-    }
-
-    .legend-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    /* =============================================
-       FEATURE CARDS — Apple highlight grid
-       ============================================= */
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 18px;
-      overflow: hidden;
-      max-width: var(--content-wide);
-      margin: 0 auto;
-    }
-
-    .feature-card {
-      background: var(--apple-dark);
-      padding: clamp(28px, 4vw, 48px);
-      transition: background 300ms ease;
-    }
-
-    .feature-card:hover { background: rgba(255,255,255,0.04); }
-
-    .feature-card .card-tag {
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
       font-size: 11px;
-      font-weight: 600;
-      color: var(--apple-blue);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-      display: block;
+      color: var(--grey-dim);
     }
+    .footer a { color: var(--cyan); }
 
-    .feature-card h3 {
-      font-size: clamp(18px, 2vw, 22px);
-      font-weight: 600;
-      line-height: 1.2;
-      letter-spacing: -0.01em;
-      margin-bottom: 10px;
-    }
-
-    .feature-card p {
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1.6;
-      color: var(--apple-grey-secondary);
-    }
-
-    /* =============================================
-       FOOTER — Apple multi-column
-       ============================================= */
-    .globalfooter {
-      background: var(--apple-dark);
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding: 40px var(--section-pad-h);
-    }
-
-    .footer-inner {
-      max-width: var(--content-wide);
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .footer-brand {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 24px;
-      list-style: none;
-    }
-
-    .footer-links a {
-      font-size: 12px;
-      color: var(--apple-grey-text);
-      transition: color 200ms ease;
-    }
-
-    .footer-links a:hover { color: var(--apple-white); }
-
-    .footer-copy {
-      font-size: 11px;
-      color: var(--apple-grey-text);
-    }
-
-    /* =============================================
-       ANIMATIONS — Apple reveal system
-       600-800ms ease-out, 50-100ms stagger
-       ============================================= */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 800ms ease-out, transform 800ms ease-out;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .stagger-1 { transition-delay: 50ms; }
-    .stagger-2 { transition-delay: 100ms; }
-    .stagger-3 { transition-delay: 150ms; }
-    .stagger-4 { transition-delay: 200ms; }
-    .stagger-5 { transition-delay: 250ms; }
-    .stagger-6 { transition-delay: 300ms; }
-    .stagger-7 { transition-delay: 350ms; }
-    .stagger-8 { transition-delay: 400ms; }
-
-    /* =============================================
-       RESPONSIVE — Apple breakpoints
-       < 735px mobile, 735-1024 tablet, > 1024 desktop
-       ============================================= */
-    @media (max-width: 1024px) {
-      .marquee { grid-template-columns: 1fr; }
-      .marquee-reverse { direction: ltr; }
-      .marquee-visual { order: -1; }
-      .feature-grid { grid-template-columns: 1fr 1fr; }
-    }
-
-    @media (max-width: 735px) {
-      .globalnav-links { display: none; }
-      .globalnav-meta { display: none; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .feature-grid { grid-template-columns: 1fr; }
-      .controls-bar { flex-direction: column; }
-      .pill-filter { width: 100%; text-align: center; }
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .map-container { aspect-ratio: 3/2; }
+      .map-legend { display: none; }
+      .detail-panel { width: 100%; right: -100%; }
       .td-notes { display: none; }
-      .footer-inner { flex-direction: column; text-align: center; }
-      .footer-links { justify-content: center; }
+      .topbar-right { display: none; }
+      .stats-row { flex-wrap: wrap; }
+      .stat-box { min-width: calc(50% - 1px); }
+      .stat-box:first-child { border-radius: 10px 0 0 0; }
+      .stat-box:nth-child(2) { border-radius: 0 10px 0 0; }
+      .stat-box:nth-child(3) { border-radius: 0 0 0 10px; }
+      .stat-box:last-child { border-radius: 0 0 10px 0; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ========== GLOBAL NAV — 44px frosted glass ========== -->
-  <nav class="globalnav">
-    <div class="globalnav-left">
-      <div class="globalnav-pulse"></div>
-      <div class="globalnav-title">AI Model Registry <span class="globalnav-version">v1.0</span></div>
+  <!-- NAV -->
+  <nav class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-logo"></div>
+      <div class="topbar-title">AI Model Registry <span>v1.0</span></div>
     </div>
-    <ul class="globalnav-links">
-      <li><a href="#registry">Registry</a></li>
-      <li><a href="#landscape">Landscape</a></li>
-      <li><a href="#methodology">Methodology</a></li>
-      <li><a href="#about">About</a></li>
-    </ul>
-    <div class="globalnav-meta">
-      <div class="globalnav-stat">Last scan: <strong>20 Mar 2026</strong></div>
-      <div class="globalnav-stat">Tracked: <strong id="nav-count">55</strong></div>
+    <div class="topbar-right">
+      <div class="topbar-stat">SCAN: <b>20 MAR 2026</b></div>
+      <div class="topbar-stat">TRACKED: <b id="nav-count">55</b></div>
+      <div class="topbar-stat">STATUS: <b style="color:var(--green)">ACTIVE</b></div>
     </div>
   </nav>
 
-  <!-- ========== HERO — Full viewport, Apple marquee ========== -->
-  <section class="hero">
-    <p class="hero-eyebrow reveal"><span class="dot"></span> Autoresearch Active</p>
-    <h1 class="hero-headline reveal stagger-1">Every company training<br><span class="gradient">original AI models.</span></h1>
-    <p class="hero-tagline reveal stagger-2">A living registry of every organisation in the world that pre-trains foundation models from scratch. Updated autonomously every 24 hours.</p>
-    <div class="hero-ctas reveal stagger-3">
-      <a href="#registry" class="cta-primary">Explore the Registry</a>
-      <a href="#methodology" class="cta-secondary">How it works <span class="chevron">&rsaquo;</span></a>
+  <div class="app">
+
+    <!-- HERO -->
+    <div class="hero-banner">
+      <h1>Who is building <span class="glow">AI?</span></h1>
+      <p>Every company in the world that trains original foundation models. Not fine-tuners. Not API wrappers. The real thing. Click any dot to explore.</p>
     </div>
-  </section>
 
-  <!-- ========== STATS — Apple highlights bar ========== -->
-  <section class="stats-section">
-    <div class="stats-grid">
-      <div class="stat-card reveal stagger-1">
-        <div class="stat-number">55</div>
-        <div class="stat-label">Active Companies</div>
-      </div>
-      <div class="stat-card reveal stagger-2">
-        <div class="stat-number">9</div>
-        <div class="stat-label">Regions Tracked</div>
-      </div>
-      <div class="stat-card reveal stagger-3">
-        <div class="stat-number">24h</div>
-        <div class="stat-label">Update Cycle</div>
-      </div>
-      <div class="stat-card reveal stagger-4">
-        <div class="stat-number">5</div>
-        <div class="stat-label">Search Cycles</div>
-      </div>
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-box"><div class="val">55</div><div class="lbl">Companies</div></div>
+      <div class="stat-box"><div class="val">9</div><div class="lbl">Regions</div></div>
+      <div class="stat-box"><div class="val">19</div><div class="lbl">United States</div></div>
+      <div class="stat-box"><div class="val">13</div><div class="lbl">China</div></div>
     </div>
-  </section>
 
-  <!-- ========== REGISTRY — Search + Filter + Data ========== -->
-  <section class="section-dark" id="registry">
-    <div class="section-inner">
-      <div class="section-header">
-        <p class="section-eyebrow reveal">The Registry</p>
-        <h2 class="section-headline reveal stagger-1">55 companies.<br>9 regions. Zero guesswork.</h2>
-        <p class="section-copy reveal stagger-2">Every entry verified against strict criteria. Pre-trains original models on own architecture with own compute.</p>
-      </div>
-
-      <div class="controls-bar reveal stagger-3">
-        <div class="search-wrap">
-          <input type="text" class="search-input" id="search" placeholder="Search companies, models, or regions..." oninput="filterTable()">
-        </div>
-        <button class="pill-filter active" onclick="setFilter('all', this)">All</button>
-        <button class="pill-filter" onclick="setFilter('open', this)">Open Source</button>
-        <button class="pill-filter" onclick="setFilter('open-weight', this)">Open Weight</button>
-        <button class="pill-filter" onclick="setFilter('closed', this)">Closed</button>
-        <button class="pill-filter" onclick="setFilter('mixed', this)">Mixed</button>
-      </div>
-
-      <div id="registry-data"></div>
+    <!-- FILTERS -->
+    <div class="filter-bar" style="margin-top:24px;">
+      <button class="filter-pill active" onclick="setMapFilter('all',this)">All Companies</button>
+      <button class="filter-pill" onclick="setMapFilter('open',this)">Open Source</button>
+      <button class="filter-pill" onclick="setMapFilter('open-weight',this)">Open Weight</button>
+      <button class="filter-pill" onclick="setMapFilter('closed',this)">Closed</button>
+      <button class="filter-pill" onclick="setMapFilter('mixed',this)">Mixed</button>
     </div>
-  </section>
 
-  <!-- ========== MARQUEE 1 — Split content: Regional Breakdown ========== -->
-  <section class="section-light" id="landscape">
-    <div class="marquee">
-      <div class="marquee-text">
-        <p class="marquee-eyebrow reveal">Regional Landscape</p>
-        <h2 class="marquee-headline reveal stagger-1">The United States leads.<br>China is closing fast.</h2>
-        <p class="marquee-body reveal stagger-2">19 US companies vs 13 Chinese. But the gap is narrowing — DeepSeek's open-source MIT-licensed models have shifted the balance of power. Europe holds 9 with Mistral leading the charge.</p>
-        <a href="#registry" class="cta-secondary reveal stagger-3" style="padding-left:0;">View by region <span class="chevron">&rsaquo;</span></a>
-      </div>
-      <div class="marquee-visual reveal stagger-2">
-        <div class="marquee-visual-content">
-          <div class="mini-bars" id="region-bars"></div>
+    <!-- MAP -->
+    <div class="map-section">
+      <div class="map-container" id="mapContainer">
+        <svg class="map-svg" id="mapSvg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="map-tooltip" id="tooltip"></div>
+        <div class="map-coords" id="coords">0.00, 0.00</div>
+        <div class="map-legend">
+          <div class="legend-title">Access Type</div>
+          <div class="legend-item"><span class="legend-dot" style="background:var(--green)"></span> Open Source</div>
+          <div class="legend-item"><span class="legend-dot" style="background:var(--amber)"></span> Open Weight</div>
+          <div class="legend-item"><span class="legend-dot" style="background:var(--red)"></span> Closed</div>
+          <div class="legend-item"><span class="legend-dot" style="background:var(--purple)"></span> Mixed</div>
+          <div class="legend-title" style="margin-top:8px">Dot Size = Companies</div>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- ========== MARQUEE 2 — Split content reversed: Access Types ========== -->
-  <section class="section-dark">
-    <div class="marquee marquee-reverse">
-      <div class="marquee-text">
-        <p class="marquee-eyebrow reveal">Access Landscape</p>
-        <h2 class="marquee-headline reveal stagger-1">Open is winning.<br>Closed is shrinking.</h2>
-        <p class="marquee-body reveal stagger-2">The open-source and open-weight movement now represents over 40% of all foundation model companies. DeepSeek, Meta, Mistral, and Stability AI are proving that open access doesn't mean weaker models.</p>
-        <a href="#registry" class="cta-secondary reveal stagger-3" style="padding-left:0;">Filter by access <span class="chevron">&rsaquo;</span></a>
-      </div>
-      <div class="marquee-visual reveal stagger-2">
-        <div class="marquee-visual-content">
-          <div class="donut-container" id="access-donut"></div>
-        </div>
-      </div>
+    <!-- DETAIL PANEL -->
+    <div class="detail-panel" id="detailPanel">
+      <button class="detail-close" onclick="closePanel()">&times;</button>
+      <div id="detailContent"></div>
     </div>
-  </section>
 
-  <!-- ========== METHODOLOGY — Apple feature grid ========== -->
-  <section class="section-dark" id="methodology" style="padding-top: 0;">
-    <div class="section-inner">
-      <div class="section-header">
-        <p class="section-eyebrow reveal">Methodology</p>
-        <h2 class="section-headline reveal stagger-1">Five autonomous cycles.<br>One complete picture.</h2>
-        <p class="section-copy reveal stagger-2">Adapted from Karpathy's autoresearch pattern. Instead of optimising a neural network, this loop optimises registry completeness.</p>
+    <!-- TABLE SECTION -->
+    <div class="table-section">
+      <div class="table-header">
+        <h2>Full Registry</h2>
+        <p>Every company, every model, every region. Search and filter below.</p>
       </div>
-
-      <div class="feature-grid">
-        <div class="feature-card reveal stagger-1">
-          <span class="card-tag">Cycle A</span>
-          <h3>New Models</h3>
-          <p>Firecrawl searches for model announcements, paper releases, and HuggingFace uploads from the last 24 hours.</p>
-        </div>
-        <div class="feature-card reveal stagger-2">
-          <span class="card-tag">Cycle B</span>
-          <h3>New Companies</h3>
-          <p>AI startup funding rounds, new lab launches, company formations. Filters out fine-tuners and API wrappers.</p>
-        </div>
-        <div class="feature-card reveal stagger-3">
-          <span class="card-tag">Cycle C</span>
-          <h3>Status Changes</h3>
-          <p>Acquisitions, shutdowns, mergers, pivots. Catches when a company stops training or gets absorbed.</p>
-        </div>
-        <div class="feature-card reveal stagger-4">
-          <span class="card-tag">Cycle D</span>
-          <h3>Leaderboard Check</h3>
-          <p>Scrapes HuggingFace leaderboards and benchmark results. Identifies unknown model families.</p>
-        </div>
-        <div class="feature-card reveal stagger-5">
-          <span class="card-tag">Cycle E</span>
-          <h3>Regional Deep Dives</h3>
-          <p>Weekly rotation: China, Europe, Asia-Pacific, Middle East. Catches companies invisible to English-language search.</p>
-        </div>
-        <div class="feature-card reveal stagger-6">
-          <span class="card-tag">Criteria</span>
-          <h3>Strict Qualification</h3>
-          <p>Must pre-train on own architecture with own compute. Must produce model weights. No exceptions.</p>
-        </div>
+      <div class="search-bar">
+        <div class="search-icon"></div>
+        <input type="text" id="search" placeholder="Search companies, models, regions..." oninput="filterTable()">
       </div>
+      <div id="tableData"></div>
     </div>
-  </section>
 
-  <!-- ========== ABOUT — Apple quote section ========== -->
-  <section class="section-light" id="about" style="text-align: center;">
-    <div class="section-inner" style="max-width: 800px; margin: 0 auto;">
-      <p class="section-eyebrow reveal">About This Project</p>
-      <h2 class="section-headline reveal stagger-1" style="font-size: clamp(24px, 3.2vw, 36px); line-height: 1.3; font-weight: 600;">Built by Project Zero as an orchestration layer for understanding the AI landscape. Powered by Firecrawl for web intelligence and Claude for autonomous research.</h2>
-      <p class="section-copy reveal stagger-2" style="margin: 24px auto 0; max-width: 500px;">The registry is maintained through autonomous search cycles, cross-referenced against multiple sources, and validated before any change is committed.</p>
+    <div class="footer">
+      Project Zero &middot; Autoresearch v1.0 &middot; Powered by Firecrawl + Claude &middot; <a href="https://github.com/ADR31223/ai-model-registry" target="_blank">GitHub</a>
     </div>
-  </section>
+  </div>
 
-  <!-- ========== FOOTER — Apple globalfooter ========== -->
-  <footer class="globalfooter">
-    <div class="footer-inner">
-      <div class="footer-brand">AI Model Registry</div>
-      <ul class="footer-links">
-        <li><a href="#registry">Registry</a></li>
-        <li><a href="#landscape">Landscape</a></li>
-        <li><a href="#methodology">Methodology</a></li>
-        <li><a href="https://github.com/ADR31223/ai-model-registry" target="_blank">GitHub</a></li>
-      </ul>
-      <p class="footer-copy">Project Zero &middot; Autoresearch v1.0 &middot; Updated 20 Mar 2026</p>
-    </div>
-  </footer>
+<script>
+/* ===== COMPANY DATA WITH COORDINATES ===== */
+const COMPANIES = [
+  // San Francisco cluster
+  { company:"OpenAI", region:"United States", models:"GPT, o-series, Whisper", access:"mixed", status:"active", notes:"$840B val", lat:37.78, lon:-122.42, city:"San Francisco" },
+  { company:"Anthropic", region:"United States", models:"Claude series", access:"closed", status:"active", notes:"$380B val", lat:37.78, lon:-122.40, city:"San Francisco" },
+  { company:"xAI", region:"United States", models:"Grok series", access:"closed", status:"active", notes:"Merged w/ SpaceX", lat:37.44, lon:-122.16, city:"Palo Alto" },
+  { company:"Together AI", region:"United States", models:"RedPajama, custom", access:"mixed", status:"active", notes:"$3.3B val", lat:37.78, lon:-122.44, city:"San Francisco" },
+  { company:"Databricks", region:"United States", models:"DBRX", access:"open-weight", status:"active", notes:"Via Mosaic ML", lat:37.79, lon:-122.39, city:"San Francisco" },
+  { company:"Inflection AI", region:"United States", models:"Pi, Inflection 2.5", access:"closed", status:"active", notes:"Reformed post-MS", lat:37.45, lon:-122.18, city:"Palo Alto" },
+  // Mountain View / Menlo Park
+  { company:"Google DeepMind", region:"United States", models:"Gemini, PaLM", access:"closed", status:"active", notes:"Also London HQ", lat:37.42, lon:-122.08, city:"Mountain View" },
+  { company:"Meta (FAIR)", region:"United States", models:"Llama, SAM", access:"open-weight", status:"active", notes:"Llama 4 latest", lat:37.45, lon:-122.15, city:"Menlo Park" },
+  // Cupertino
+  { company:"Apple", region:"United States", models:"Apple Intelligence", access:"closed", status:"active", notes:"On-device focused", lat:37.33, lon:-122.01, city:"Cupertino" },
+  // Santa Clara
+  { company:"NVIDIA", region:"United States", models:"Nemotron", access:"open-weight", status:"active", notes:"Wafer chip leader", lat:37.38, lon:-121.96, city:"Santa Clara" },
+  { company:"ServiceNow", region:"United States", models:"Apriel, Now LLM", access:"closed", status:"active", notes:"Enterprise AI", lat:37.39, lon:-121.97, city:"Santa Clara" },
+  { company:"Cerebras", region:"United States", models:"Custom models", access:"closed", status:"active", notes:"$8.1B val", lat:37.37, lon:-121.92, city:"Sunnyvale" },
+  { company:"SambaNova", region:"United States", models:"Custom models", access:"closed", status:"active", notes:"Talks w/ Intel", lat:37.45, lon:-122.12, city:"Palo Alto" },
+  // Seattle
+  { company:"Amazon (AWS)", region:"United States", models:"Titan, Nova", access:"closed", status:"active", notes:"Bedrock-native", lat:47.61, lon:-122.33, city:"Seattle" },
+  { company:"Microsoft Research", region:"United States", models:"Phi series", access:"open-weight", status:"active", notes:"Separate from OpenAI", lat:47.64, lon:-122.13, city:"Redmond" },
+  { company:"Allen AI (AI2)", region:"United States", models:"OLMo", access:"open", status:"active", notes:"Fully open", lat:47.62, lon:-122.34, city:"Seattle" },
+  // New York
+  { company:"Runway", region:"United States", models:"Gen-3, Gen-4", access:"closed", status:"active", notes:"Video gen, $5.3B", lat:40.74, lon:-73.99, city:"New York" },
+  { company:"Twelve Labs", region:"United States", models:"Video understanding", access:"closed", status:"active", notes:"Multimodal", lat:40.75, lon:-73.98, city:"New York" },
+  // Distributed
+  { company:"EleutherAI", region:"United States", models:"GPT-NeoX, Pythia", access:"open", status:"active", notes:"Community-led", lat:39.83, lon:-98.58, city:"Distributed (US)" },
+  // Canada
+  { company:"Cohere", region:"Canada", models:"Command R, Aya", access:"mixed", status:"active", notes:"$7B val", lat:43.65, lon:-79.38, city:"Toronto" },
+  // France
+  { company:"Mistral AI", region:"Europe", models:"Mistral, Mixtral, Codestral", access:"mixed", status:"active", notes:"\u20ac11.7B val", lat:48.86, lon:2.35, city:"Paris" },
+  // Germany
+  { company:"Aleph Alpha", region:"Europe", models:"Luminous, PhariaAI", access:"mixed", status:"active", notes:"\u20ac500M+", lat:49.40, lon:8.69, city:"Heidelberg" },
+  { company:"Black Forest Labs", region:"Europe", models:"FLUX", access:"open-weight", status:"active", notes:"Image gen, $3.25B", lat:47.99, lon:7.85, city:"Freiburg" },
+  { company:"DeepL", region:"Europe", models:"Neural translation", access:"closed", status:"active", notes:"IPO 2026", lat:50.94, lon:6.96, city:"Cologne" },
+  { company:"Helsing", region:"Europe", models:"Defense AI", access:"closed", status:"active", notes:"$12B val", lat:48.14, lon:11.58, city:"Munich" },
+  // UK
+  { company:"Stability AI", region:"Europe", models:"Stable Diffusion, StableLM", access:"open", status:"active", notes:"London", lat:51.51, lon:-0.13, city:"London" },
+  { company:"Wayve", region:"Europe", models:"AV foundation models", access:"closed", status:"active", notes:"$8.6B val", lat:51.52, lon:-0.10, city:"London" },
+  { company:"ElevenLabs", region:"Europe", models:"Voice synthesis", access:"closed", status:"active", notes:"$11B val", lat:51.50, lon:-0.08, city:"London" },
+  { company:"Synthesia", region:"Europe", models:"Avatar/video gen", access:"closed", status:"active", notes:"London", lat:51.53, lon:-0.12, city:"London" },
+  // Finland
+  { company:"Silo AI", region:"Europe", models:"Poro, Viking", access:"open", status:"active", notes:"Acquired by AMD", lat:60.17, lon:24.94, city:"Helsinki" },
+  // Israel
+  { company:"AI21 Labs", region:"Israel", models:"Jurassic, Jamba", access:"mixed", status:"active", notes:"$1.4B+", lat:32.09, lon:34.78, city:"Tel Aviv" },
+  // China - Beijing
+  { company:"Baidu", region:"China", models:"ERNIE series", access:"mixed", status:"active", notes:"Beijing", lat:39.91, lon:116.40, city:"Beijing" },
+  { company:"ByteDance", region:"China", models:"Doubao, Seed", access:"closed", status:"active", notes:"Beijing", lat:39.98, lon:116.31, city:"Beijing" },
+  { company:"Moonshot AI", region:"China", models:"Kimi series", access:"closed", status:"active", notes:"$4.3B val", lat:39.95, lon:116.35, city:"Beijing" },
+  { company:"Zhipu AI", region:"China", models:"GLM series", access:"mixed", status:"active", notes:"Tsinghua spinoff", lat:39.99, lon:116.33, city:"Beijing" },
+  // China - Hangzhou
+  { company:"Alibaba (Qwen)", region:"China", models:"Qwen series", access:"mixed", status:"active", notes:"$50.6B AI invest", lat:30.27, lon:120.15, city:"Hangzhou" },
+  { company:"DeepSeek", region:"China", models:"DeepSeek-V3, R1", access:"open", status:"active", notes:"MIT License", lat:30.29, lon:120.17, city:"Hangzhou" },
+  // China - Shenzhen
+  { company:"Tencent", region:"China", models:"Hunyuan", access:"closed", status:"active", notes:"Shenzhen", lat:22.54, lon:114.06, city:"Shenzhen" },
+  { company:"Huawei", region:"China", models:"Pangu", access:"closed", status:"active", notes:"Ascend chips", lat:22.57, lon:114.00, city:"Shenzhen" },
+  // China - Hong Kong
+  { company:"SenseTime", region:"China", models:"SenseNova", access:"closed", status:"active", notes:"HK/Beijing", lat:22.32, lon:114.17, city:"Hong Kong" },
+  { company:"MiniMax", region:"China", models:"MiniMax-Text", access:"closed", status:"active", notes:"HK IPO filing", lat:22.28, lon:114.16, city:"Hong Kong" },
+  // China - other
+  { company:"Baichuan", region:"China", models:"Baichuan series", access:"mixed", status:"active", notes:"$693M Series A", lat:39.92, lon:116.46, city:"Beijing" },
+  { company:"StepFun", region:"China", models:"Step series", access:"open-weight", status:"active", notes:"Multimodal VLM", lat:31.23, lon:121.47, city:"Shanghai" },
+  { company:"01.AI (Yi)", region:"China", models:"Yi series", access:"open-weight", status:"active", notes:"Kai-Fu Lee", lat:39.90, lon:116.41, city:"Beijing" },
+  // Japan
+  { company:"Preferred Networks", region:"Japan", models:"PLaMo", access:"open-weight", status:"active", notes:"Japan's largest", lat:35.68, lon:139.76, city:"Tokyo" },
+  { company:"Sakana AI", region:"Japan", models:"Evolutionary merging", access:"mixed", status:"active", notes:"Ex-Google Brain", lat:35.66, lon:139.70, city:"Tokyo" },
+  // South Korea
+  { company:"Naver", region:"South Korea", models:"HyperCLOVA X", access:"closed", status:"active", notes:"Korea's largest", lat:37.36, lon:127.11, city:"Seongnam" },
+  { company:"Samsung Research", region:"South Korea", models:"Gauss", access:"closed", status:"active", notes:"On-device", lat:37.38, lon:127.12, city:"Suwon" },
+  { company:"Kakao Brain", region:"South Korea", models:"KoGPT", access:"open", status:"active", notes:"Korean language", lat:37.39, lon:127.10, city:"Seongnam" },
+  { company:"Upstage", region:"South Korea", models:"SOLAR", access:"open-weight", status:"active", notes:"Seoul", lat:37.57, lon:126.98, city:"Seoul" },
+  // UAE
+  { company:"TII", region:"UAE", models:"Falcon", access:"open", status:"active", notes:"Gov-backed", lat:24.45, lon:54.65, city:"Abu Dhabi" },
+  { company:"G42", region:"UAE", models:"Jais (Arabic)", access:"open", status:"active", notes:"MS partnership", lat:24.47, lon:54.37, city:"Abu Dhabi" },
+  // India
+  { company:"Sarvam AI", region:"India", models:"OpenHathi, Sarvam-1", access:"open", status:"active", notes:"Indian langs", lat:12.97, lon:77.59, city:"Bangalore" },
+  { company:"Krutrim (Ola)", region:"India", models:"Krutrim", access:"closed", status:"active", notes:"Multilingual", lat:12.93, lon:77.62, city:"Bangalore" },
+  // Russia
+  { company:"Yandex", region:"Russia", models:"YandexGPT", access:"closed", status:"active", notes:"Moscow", lat:55.75, lon:37.62, city:"Moscow" },
+  { company:"Sber", region:"Russia", models:"GigaChat, mGPT", access:"mixed", status:"active", notes:"Moscow", lat:55.76, lon:37.60, city:"Moscow" },
+];
 
-  <!-- ========== JAVASCRIPT ========== -->
-  <script>
-    /* ===== DATA ===== */
-    const DATA = [
-      { company: "OpenAI", region: "United States", models: "GPT, o-series, Whisper", access: "mixed", status: "active", notes: "$840B valuation (Feb 2026)" },
-      { company: "Anthropic", region: "United States", models: "Claude series", access: "closed", status: "active", notes: "$380B valuation (Feb 2026)" },
-      { company: "Google DeepMind", region: "United States", models: "Gemini, PaLM", access: "closed", status: "active", notes: "Also London HQ" },
-      { company: "Meta (FAIR)", region: "United States", models: "Llama, SAM", access: "open-weight", status: "active", notes: "Llama 4 Scout/Maverick" },
-      { company: "xAI", region: "United States", models: "Grok series", access: "closed", status: "active", notes: "Merged w/ SpaceX (Feb 2026)" },
-      { company: "Microsoft Research", region: "United States", models: "Phi series", access: "open-weight", status: "active", notes: "Separate from OpenAI partnership" },
-      { company: "Apple", region: "United States", models: "Apple Intelligence", access: "closed", status: "active", notes: "On-device focused" },
-      { company: "Amazon (AWS)", region: "United States", models: "Titan, Nova", access: "closed", status: "active", notes: "Bedrock-native models" },
-      { company: "NVIDIA", region: "United States", models: "Nemotron", access: "open-weight", status: "active", notes: "Custom training on Llama base" },
-      { company: "Databricks", region: "United States", models: "DBRX", access: "open-weight", status: "active", notes: "Via Mosaic ML acquisition" },
-      { company: "Together AI", region: "United States", models: "RedPajama, custom", access: "mixed", status: "active", notes: "$3.3B valuation" },
-      { company: "Runway", region: "United States", models: "Gen-3, Gen-4", access: "closed", status: "active", notes: "Video generation, $5.3B" },
-      { company: "ServiceNow", region: "United States", models: "Apriel, Now LLM", access: "closed", status: "active", notes: "Enterprise-focused" },
-      { company: "Cerebras", region: "United States", models: "Custom models", access: "closed", status: "active", notes: "Wafer-scale chip, $8.1B" },
-      { company: "SambaNova", region: "United States", models: "Custom models", access: "closed", status: "active", notes: "In talks with Intel" },
-      { company: "Twelve Labs", region: "United States", models: "Video understanding", access: "closed", status: "active", notes: "Multimodal video" },
-      { company: "EleutherAI", region: "United States", models: "GPT-NeoX, Pythia", access: "open", status: "active", notes: "Community-led" },
-      { company: "Allen AI (AI2)", region: "United States", models: "OLMo", access: "open", status: "active", notes: "Fully open: data+weights+code" },
-      { company: "Inflection AI", region: "United States", models: "Pi, Inflection 2.5", access: "closed", status: "active", notes: "Reformed after MS hired team" },
-      { company: "Cohere", region: "Canada", models: "Command R, Aya", access: "mixed", status: "active", notes: "Toronto, $7B valuation" },
-      { company: "Mistral AI", region: "Europe \u2014 France", models: "Mistral, Mixtral, Codestral", access: "mixed", status: "active", notes: "\u20ac11.7B valuation" },
-      { company: "Aleph Alpha", region: "Europe \u2014 Germany", models: "Luminous, PhariaAI", access: "mixed", status: "active", notes: "\u20ac500M+ funding" },
-      { company: "Black Forest Labs", region: "Europe \u2014 Germany", models: "FLUX", access: "open-weight", status: "active", notes: "Image generation, $3.25B" },
-      { company: "DeepL", region: "Europe \u2014 Germany", models: "Neural translation", access: "closed", status: "active", notes: "Preparing IPO 2026" },
-      { company: "Stability AI", region: "Europe \u2014 UK", models: "Stable Diffusion, StableLM", access: "open", status: "active", notes: "London" },
-      { company: "Wayve", region: "Europe \u2014 UK", models: "AV foundation models", access: "closed", status: "active", notes: "Autonomous driving, $8.6B" },
-      { company: "ElevenLabs", region: "Europe \u2014 UK", models: "Voice synthesis", access: "closed", status: "active", notes: "London + Poland, $11B" },
-      { company: "Synthesia", region: "Europe \u2014 UK", models: "Avatar/video generation", access: "closed", status: "active", notes: "London" },
-      { company: "Helsing", region: "Europe \u2014 Germany", models: "Defense AI", access: "closed", status: "active", notes: "Defense/security, $12B" },
-      { company: "Silo AI", region: "Europe \u2014 Finland", models: "Poro, Viking", access: "open", status: "active", notes: "Acquired by AMD" },
-      { company: "AI21 Labs", region: "Israel", models: "Jurassic, Jamba", access: "mixed", status: "active", notes: "Tel Aviv, $1.4B+" },
-      { company: "Alibaba (Qwen Lab)", region: "China", models: "Qwen series", access: "mixed", status: "active", notes: "$50.6B AI investment/3yr" },
-      { company: "Baidu", region: "China", models: "ERNIE series", access: "mixed", status: "active", notes: "Beijing" },
-      { company: "Tencent", region: "China", models: "Hunyuan", access: "closed", status: "active", notes: "Shenzhen" },
-      { company: "ByteDance", region: "China", models: "Doubao, Seed", access: "closed", status: "active", notes: "Beijing" },
-      { company: "Huawei", region: "China", models: "Pangu", access: "closed", status: "active", notes: "Ascend chips, vertical integration" },
-      { company: "DeepSeek", region: "China", models: "DeepSeek-V3, R1", access: "open", status: "active", notes: "MIT License, High-Flyer backed" },
-      { company: "Moonshot AI", region: "China", models: "Kimi series", access: "closed", status: "active", notes: "Beijing, $4.3B" },
-      { company: "Zhipu AI", region: "China", models: "GLM series", access: "mixed", status: "active", notes: "Tsinghua spinoff" },
-      { company: "SenseTime", region: "China", models: "SenseNova", access: "closed", status: "active", notes: "Hong Kong/Beijing" },
-      { company: "MiniMax", region: "China", models: "MiniMax-Text, Multimodal", access: "closed", status: "active", notes: "Confidential HK IPO" },
-      { company: "Baichuan", region: "China", models: "Baichuan series", access: "mixed", status: "active", notes: "$693M Series A" },
-      { company: "StepFun", region: "China", models: "Step series", access: "open-weight", status: "active", notes: "Multimodal VLM" },
-      { company: "01.AI (Yi)", region: "China", models: "Yi series", access: "open-weight", status: "active", notes: "Founded by Kai-Fu Lee" },
-      { company: "Preferred Networks", region: "Japan", models: "PLaMo", access: "open-weight", status: "active", notes: "Japan's largest AI lab" },
-      { company: "Sakana AI", region: "Japan", models: "Evolutionary merging", access: "mixed", status: "active", notes: "Ex-Google Brain founders" },
-      { company: "Naver", region: "South Korea", models: "HyperCLOVA X", access: "closed", status: "active", notes: "Korea's largest search" },
-      { company: "Samsung Research", region: "South Korea", models: "Gauss", access: "closed", status: "active", notes: "On-device models" },
-      { company: "Kakao Brain", region: "South Korea", models: "KoGPT", access: "open", status: "active", notes: "Korean language focus" },
-      { company: "Upstage", region: "South Korea", models: "SOLAR", access: "open-weight", status: "active", notes: "Seoul" },
-      { company: "TII", region: "UAE", models: "Falcon", access: "open", status: "active", notes: "Abu Dhabi, gov-backed" },
-      { company: "G42", region: "UAE", models: "Jais (Arabic)", access: "open", status: "active", notes: "Microsoft partnership" },
-      { company: "Sarvam AI", region: "India", models: "OpenHathi, Sarvam-1", access: "open", status: "active", notes: "Indian languages" },
-      { company: "Krutrim (Ola)", region: "India", models: "Krutrim", access: "closed", status: "active", notes: "Multilingual" },
-      { company: "Yandex", region: "Russia", models: "YandexGPT", access: "closed", status: "active", notes: "Moscow" },
-      { company: "Sber", region: "Russia", models: "GigaChat, mGPT", access: "mixed", status: "active", notes: "Moscow" },
-    ];
+/* ===== SIMPLIFIED CONTINENT OUTLINES (lon,lat pairs) ===== */
+const CONTINENTS = {
+  northAmerica: [[-130,50],[-125,60],[-130,70],[-160,72],[-168,66],[-168,60],[-160,56],[-152,58],[-138,56],[-136,58],[-132,54],[-124,48],[-122,37],[-117,32],[-110,30],[-105,25],[-98,20],[-96,18],[-92,16],[-88,16],[-84,10],[-80,8],[-78,8],[-77,18],[-80,25],[-82,28],[-84,30],[-90,30],[-95,30],[-98,26],[-98,28],[-95,35],[-90,35],[-85,35],[-80,32],[-76,35],[-74,40],[-70,42],[-66,44],[-66,47],[-68,48],[-70,46],[-64,44],[-60,47],[-56,50],[-55,52],[-58,55],[-65,62],[-72,68],[-80,64],[-92,68],[-95,72],[-110,72],[-120,70],[-130,50]],
+  southAmerica: [[-80,8],[-77,6],[-72,12],[-72,8],[-68,6],[-60,8],[-55,6],[-50,2],[-48,-2],[-50,-10],[-38,-4],[-35,-8],[-35,-12],[-40,-15],[-40,-22],[-42,-23],[-44,-23],[-48,-28],[-50,-30],[-52,-33],[-54,-34],[-58,-38],[-64,-40],[-65,-42],[-66,-46],[-68,-48],[-70,-52],[-74,-52],[-74,-46],[-76,-44],[-74,-40],[-72,-36],[-72,-30],[-70,-20],[-75,-15],[-76,-10],[-76,-5],[-80,0],[-80,8]],
+  europe: [[-10,36],[-8,44],[-4,44],[0,44],[2,48],[6,48],[8,54],[6,56],[8,58],[12,56],[14,54],[18,56],[22,55],[24,56],[28,56],[30,60],[28,64],[24,66],[16,68],[14,70],[18,70],[24,72],[32,70],[40,68],[42,64],[44,60],[40,56],[30,46],[28,42],[26,38],[24,36],[22,38],[20,40],[16,46],[14,46],[12,42],[14,38],[10,44],[6,44],[4,48],[2,50],[-2,48],[-4,48],[-8,42],[-10,36]],
+  africa: [[-16,16],[-17,22],[-14,28],[-8,32],[-4,36],[0,36],[10,36],[12,34],[14,30],[24,32],[28,32],[32,30],[34,28],[40,12],[42,10],[50,12],[52,2],[46,-2],[42,-12],[40,-16],[36,-20],[34,-24],[32,-28],[28,-32],[26,-34],[20,-35],[18,-34],[16,-30],[12,-18],[12,-6],[10,0],[8,4],[4,6],[2,6],[-4,4],[-8,4],[-12,10],[-16,12],[-16,16]],
+  asia: [[40,68],[44,60],[40,56],[44,52],[50,46],[52,42],[54,38],[56,26],[60,24],[66,24],[70,20],[76,14],[80,8],[80,16],[88,22],[92,20],[96,16],[100,14],[104,10],[106,16],[108,20],[116,22],[120,24],[122,30],[124,34],[128,36],[130,34],[132,34],[136,36],[140,36],[142,44],[144,44],[142,48],[138,50],[136,54],[142,60],[150,60],[162,66],[170,64],[180,66],[180,72],[170,72],[160,72],[130,72],[100,72],[80,72],[68,72],[56,68],[40,68]],
+  oceania: [[114,-8],[120,-10],[128,-14],[132,-12],[136,-14],[140,-12],[142,-10],[142,-14],[146,-16],[148,-20],[152,-24],[154,-28],[152,-34],[148,-38],[142,-38],[136,-36],[132,-34],[124,-34],[116,-34],[114,-26],[114,-22],[118,-20],[122,-18],[126,-16],[120,-14],[114,-8]],
+};
 
-    const REGION_ORDER = [...new Set(DATA.map(d => d.region))];
-    let currentFilter = 'all';
+/* ===== PROJECTION ===== */
+function lonLatToXY(lon, lat) {
+  const x = (lon + 180) / 360 * 1000;
+  const y = (90 - lat) / 180 * 500;
+  return [x, y];
+}
 
-    function setFilter(filter, btn) {
-      currentFilter = filter;
-      document.querySelectorAll('.pill-filter').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      filterTable();
-    }
+/* ===== ACCESS COLORS ===== */
+const ACCESS_COLORS = {
+  open: '#00e676',
+  'open-weight': '#ffab00',
+  closed: '#ff5252',
+  mixed: '#b388ff',
+};
 
-    function filterTable() {
-      const q = document.getElementById('search').value.toLowerCase();
-      const filtered = DATA.filter(d => {
-        const s = !q || d.company.toLowerCase().includes(q) || d.models.toLowerCase().includes(q) || d.region.toLowerCase().includes(q) || d.notes.toLowerCase().includes(q);
-        const f = currentFilter === 'all' || d.access === currentFilter;
-        return s && f;
-      });
+let activeFilter = 'all';
+let activeCity = null;
 
-      const el = document.getElementById('registry-data');
-      let count = 0, html = '';
+/* ===== BUILD MAP ===== */
+function buildMap() {
+  const svg = document.getElementById('mapSvg');
+  let content = '';
 
-      REGION_ORDER.forEach(region => {
-        const items = filtered.filter(d => d.region === region);
-        if (!items.length) return;
-        count += items.length;
+  // Grid lines
+  for (let lon = -180; lon <= 180; lon += 30) {
+    const [x] = lonLatToXY(lon, 0);
+    content += `<line x1="${x}" y1="0" x2="${x}" y2="500" class="grid-line"/>`;
+  }
+  for (let lat = -60; lat <= 80; lat += 30) {
+    const [,y] = lonLatToXY(0, lat);
+    const cls = lat === 0 ? 'equator' : 'grid-line';
+    content += `<line x1="0" y1="${y}" x2="1000" y2="${y}" class="${cls}"/>`;
+  }
 
-        html += `<div class="region-block reveal">
-          <div class="region-title"><h3>${region}</h3><span class="region-badge">${items.length}</span></div>
-          <table><thead><tr><th>Company</th><th>Model Family</th><th>Access</th><th>Status</th><th>Notes</th></tr></thead>
-          <tbody>${items.map(d => `<tr>
-            <td class="td-company">${d.company}</td>
-            <td class="td-models">${d.models}</td>
-            <td><span class="tag tag-${d.access}">${d.access.replace('-',' ')}</span></td>
-            <td class="td-status">${d.status}</td>
-            <td class="td-notes">${d.notes}</td>
-          </tr>`).join('')}</tbody></table></div>`;
-      });
+  // Continents
+  Object.values(CONTINENTS).forEach(pts => {
+    const d = pts.map((p,i) => {
+      const [x,y] = lonLatToXY(p[0], p[1]);
+      return `${i===0?'M':'L'}${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(' ') + ' Z';
+    content += `<path d="${d}" class="continent"/>`;
+  });
 
-      el.innerHTML = html;
-      document.getElementById('nav-count').textContent = count;
+  // Group companies by city
+  const cities = {};
+  COMPANIES.forEach(c => {
+    const key = `${c.lat.toFixed(1)}_${c.lon.toFixed(1)}_${c.city}`;
+    if (!cities[key]) cities[key] = { lat:c.lat, lon:c.lon, city:c.city, companies:[] };
+    cities[key].companies.push(c);
+  });
 
-      // Re-observe new reveals
-      el.querySelectorAll('.reveal').forEach(r => observer.observe(r));
-    }
+  // Company dots
+  Object.entries(cities).forEach(([key, city]) => {
+    const [x, y] = lonLatToXY(city.lon, city.lat);
+    const filtered = city.companies.filter(c => activeFilter === 'all' || c.access === activeFilter);
+    if (filtered.length === 0) return;
 
-    /* ===== CHARTS ===== */
-    function buildRegionBars() {
-      const counts = {};
-      DATA.forEach(d => {
-        const r = d.region.split(' \u2014 ')[0];
-        counts[r] = (counts[r] || 0) + 1;
-      });
+    // Dominant access color
+    const accessCounts = {};
+    filtered.forEach(c => { accessCounts[c.access] = (accessCounts[c.access]||0)+1; });
+    const dominant = Object.entries(accessCounts).sort((a,b)=>b[1]-a[1])[0][0];
+    const color = ACCESS_COLORS[dominant];
+    const r = Math.min(3 + filtered.length * 1.5, 10);
 
-      const sorted = Object.entries(counts).sort((a,b) => b[1] - a[1]).slice(0, 7);
-      const max = sorted[0][1];
-      const colors = ['#2997ff','#5ac8fa','#30d158','#ff9f0a','#bf5af2','#ff453a','#86868b'];
+    // Glow
+    content += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r+8}" fill="${color}" opacity="0.08" class="dot-glow"/>`;
+    // Dot
+    content += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${color}" opacity="0.85" class="company-dot" data-key="${key}" onclick="openCity('${key}')" onmouseenter="showTooltip(event,'${key}')" onmouseleave="hideTooltip()"/>`;
+  });
 
-      const container = document.getElementById('region-bars');
-      container.innerHTML = sorted.map(([ region, count ], i) =>
-        `<div class="mini-bar" style="height:${(count/max)*100}%;background:${colors[i]};">
-          <span class="mini-bar-label">${region} (${count})</span>
-        </div>`
-      ).join('');
-    }
+  svg.innerHTML = content;
 
-    function buildAccessDonut() {
-      const counts = { open: 0, 'open-weight': 0, closed: 0, mixed: 0 };
-      DATA.forEach(d => counts[d.access]++);
+  // Store cities globally
+  window._cities = cities;
+}
 
-      const total = DATA.length;
-      const segments = [
-        { label: 'Closed', count: counts.closed, color: '#ff453a' },
-        { label: 'Mixed', count: counts.mixed, color: '#bf5af2' },
-        { label: 'Open Weight', count: counts['open-weight'], color: '#ff9f0a' },
-        { label: 'Open Source', count: counts.open, color: '#30d158' },
-      ];
+/* ===== TOOLTIP ===== */
+function showTooltip(e, key) {
+  const city = window._cities[key];
+  if (!city) return;
 
-      let offset = 0;
-      const r = 60, circ = 2 * Math.PI * r;
+  const filtered = city.companies.filter(c => activeFilter === 'all' || c.access === activeFilter);
+  const tip = document.getElementById('tooltip');
 
-      const arcs = segments.map(s => {
-        const pct = s.count / total;
-        const dash = circ * pct;
-        const gap = circ - dash;
-        const o = offset;
-        offset += pct;
-        return `<circle cx="80" cy="80" r="${r}" fill="none" stroke="${s.color}" stroke-width="20"
-          stroke-dasharray="${dash} ${gap}" stroke-dashoffset="${-circ * o}"
-          style="transition: stroke-dashoffset 800ms ease-out;" />`;
-      }).join('');
+  let html = `<div class="tooltip-city">${city.city} \u2014 ${filtered.length} ${filtered.length===1?'company':'companies'}</div>`;
+  filtered.forEach(c => {
+    html += `<div class="tooltip-company">
+      <span class="name">${c.company}</span>
+      <span class="tooltip-tag ${c.access}">${c.access.replace('-',' ')}</span>
+      <span class="models">${c.models}</span>
+    </div>`;
+  });
 
-      const legend = segments.map(s =>
-        `<div class="legend-item"><span class="legend-dot" style="background:${s.color}"></span>${s.label}: ${s.count} (${Math.round(s.count/total*100)}%)</div>`
-      ).join('');
+  tip.innerHTML = html;
 
-      document.getElementById('access-donut').innerHTML =
-        `<svg class="donut-svg" viewBox="0 0 160 160">${arcs}</svg><div class="donut-legend">${legend}</div>`;
-    }
+  const container = document.getElementById('mapContainer');
+  const rect = container.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
 
-    /* ===== INTERSECTION OBSERVER — Apple reveal ===== */
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('visible');
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  tip.style.left = (mx + 16) + 'px';
+  tip.style.top = (my - 16) + 'px';
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  // Keep tooltip in bounds
+  if (mx > rect.width * 0.65) tip.style.left = (mx - 280) + 'px';
+  if (my > rect.height * 0.7) tip.style.top = (my - tip.offsetHeight - 16) + 'px';
 
-    /* ===== INIT ===== */
-    filterTable();
-    buildRegionBars();
-    buildAccessDonut();
-  </script>
+  tip.classList.add('show');
+}
 
+function hideTooltip() {
+  document.getElementById('tooltip').classList.remove('show');
+}
+
+/* ===== DETAIL PANEL ===== */
+function openCity(key) {
+  const city = window._cities[key];
+  if (!city) return;
+
+  const filtered = city.companies.filter(c => activeFilter === 'all' || c.access === activeFilter);
+  const panel = document.getElementById('detailPanel');
+  const content = document.getElementById('detailContent');
+
+  let html = `
+    <div class="detail-region">${filtered[0].region}</div>
+    <div class="detail-city">${city.city}</div>
+    <div class="detail-count">${filtered.length} ${filtered.length===1?'company':'companies'} training original models</div>
+  `;
+
+  filtered.forEach(c => {
+    html += `<div class="detail-company">
+      <div class="detail-company-name">${c.company}</div>
+      <div class="detail-company-models">${c.models}</div>
+      <div class="detail-company-notes">${c.notes}</div>
+      <span class="detail-company-tag ${c.access}">${c.access.replace('-',' ')}</span>
+    </div>`;
+  });
+
+  content.innerHTML = html;
+  panel.classList.add('open');
+  activeCity = key;
+}
+
+function closePanel() {
+  document.getElementById('detailPanel').classList.remove('open');
+  activeCity = null;
+}
+
+/* ===== MAP FILTER ===== */
+function setMapFilter(filter, btn) {
+  activeFilter = filter;
+  document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  buildMap();
+  filterTable();
+  if (activeCity) openCity(activeCity);
+}
+
+/* ===== COORDINATES DISPLAY ===== */
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('mapContainer');
+  container.addEventListener('mousemove', e => {
+    const rect = container.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width;
+    const py = (e.clientY - rect.top) / rect.height;
+    const lon = (px * 360 - 180).toFixed(1);
+    const lat = (90 - py * 180).toFixed(1);
+    document.getElementById('coords').textContent = `${lat}\u00b0, ${lon}\u00b0`;
+  });
+});
+
+/* ===== TABLE ===== */
+const REGION_ORDER = [...new Set(COMPANIES.map(c => c.region))];
+
+function filterTable() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const filtered = COMPANIES.filter(c => {
+    const s = !q || c.company.toLowerCase().includes(q) || c.models.toLowerCase().includes(q) || c.region.toLowerCase().includes(q) || c.city.toLowerCase().includes(q);
+    const f = activeFilter === 'all' || c.access === activeFilter;
+    return s && f;
+  });
+
+  const el = document.getElementById('tableData');
+  let html = '', count = 0;
+
+  REGION_ORDER.forEach(region => {
+    const items = filtered.filter(c => c.region === region);
+    if (!items.length) return;
+    count += items.length;
+
+    html += `<div class="region-group">
+      <div class="region-row"><h3>${region}</h3><span class="region-badge">${items.length}</span></div>
+      <table><thead><tr><th>Company</th><th>City</th><th>Models</th><th>Access</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>${items.map(c => `<tr>
+        <td class="td-name">${c.company}</td>
+        <td style="font-size:12px;color:var(--grey)">${c.city}</td>
+        <td class="td-model">${c.models}</td>
+        <td><span class="td-tag ${c.access}">${c.access.replace('-',' ')}</span></td>
+        <td class="td-status">${c.status}</td>
+        <td class="td-notes">${c.notes}</td>
+      </tr>`).join('')}</tbody></table></div>`;
+  });
+
+  el.innerHTML = html;
+  document.getElementById('nav-count').textContent = count;
+}
+
+/* ===== INIT ===== */
+buildMap();
+filterTable();
+</script>
 </body>
 </html>
