@@ -1,0 +1,676 @@
+{
+  "_meta": {
+    "description": "AI industry events in chronological order — Phase 3 of AI Intel build plan",
+    "node_type": "EVENT",
+    "version": "1.0.0",
+    "last_updated": "2026-03-20",
+    "total_events": 31,
+    "date_range": {
+      "start": "2017-06-12",
+      "end": "2026-03-20"
+    },
+    "schema": {
+      "id": "Unique event identifier (evt-YYYYMM-slug)",
+      "name": "Short event name",
+      "date": "ISO date (YYYY-MM-DD)",
+      "description": "What happened and why it mattered",
+      "event_type": "launch | paper | open_source | acquisition | announcement | product | merger",
+      "signal": {
+        "score": "0-10 historical impact score",
+        "category": "new_architecture | new_modality | capability_jump | new_paradigm | market_shift | infrastructure_shift | incremental | marketing | fine_tune | funding_only | speculation"
+      },
+      "entities": {
+        "companies": "Company IDs involved (links to companies.json)",
+        "models": "Model IDs involved (links to models.json)",
+        "papers": "Paper IDs involved",
+        "people": "Person IDs involved"
+      },
+      "preceded_by": "Event ID this follows from",
+      "status": "active | superseded",
+      "last_updated": "ISO date of last verification"
+    }
+  },
+  "events": [
+    {
+      "id": "evt-201706-transformer-paper",
+      "name": "Attention Is All You Need",
+      "date": "2017-06-12",
+      "description": "Google Brain and Google Research publish the Transformer architecture paper. Replaces RNNs and LSTMs with self-attention. Becomes the foundation of every major language model, image model, and multimodal system that follows. The single most consequential AI paper of the decade.",
+      "event_type": "paper",
+      "signal": {
+        "score": 10,
+        "category": "new_architecture"
+      },
+      "entities": {
+        "companies": ["google"],
+        "models": [],
+        "papers": ["attention-is-all-you-need"],
+        "people": ["ashish-vaswani", "noam-shazeer", "niki-parmar", "jakob-uszkoreit", "llion-jones", "aidan-gomez", "lukasz-kaiser", "illia-polosukhin"]
+      },
+      "preceded_by": null,
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-201806-gpt1",
+      "name": "GPT-1 Released",
+      "date": "2018-06-11",
+      "description": "OpenAI releases GPT-1 — a 117M parameter Transformer trained with unsupervised pre-training then supervised fine-tuning. Proved that generative pre-training on large text corpora followed by task-specific fine-tuning works. Foundation of the GPT lineage.",
+      "event_type": "launch",
+      "signal": {
+        "score": 6,
+        "category": "new_paradigm"
+      },
+      "entities": {
+        "companies": ["openai"],
+        "models": ["gpt-1"],
+        "papers": ["improving-language-understanding-gpt"],
+        "people": ["alec-radford"]
+      },
+      "preceded_by": "evt-201706-transformer-paper",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-201810-bert",
+      "name": "BERT Released",
+      "date": "2018-10-11",
+      "description": "Google releases BERT — bidirectional Transformer encoder that dominates NLP benchmarks. Proves masked language modelling as pre-training objective. Becomes the backbone of Google Search. The encoder-side counterpart to GPT's decoder-only approach.",
+      "event_type": "launch",
+      "signal": {
+        "score": 7,
+        "category": "new_paradigm"
+      },
+      "entities": {
+        "companies": ["google"],
+        "models": ["bert"],
+        "papers": ["bert-paper"],
+        "people": ["jacob-devlin"]
+      },
+      "preceded_by": "evt-201706-transformer-paper",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-201902-gpt2",
+      "name": "GPT-2 Released",
+      "date": "2019-02-14",
+      "description": "OpenAI releases GPT-2 (1.5B parameters) with the claim it was 'too dangerous to release' fully. Staged release strategy. First model to generate coherent long-form text. Triggered the open vs closed debate that still defines the industry.",
+      "event_type": "launch",
+      "signal": {
+        "score": 5,
+        "category": "capability_jump"
+      },
+      "entities": {
+        "companies": ["openai"],
+        "models": ["gpt-2"],
+        "papers": [],
+        "people": []
+      },
+      "preceded_by": "evt-201806-gpt1",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202005-gpt3",
+      "name": "GPT-3 Released",
+      "date": "2020-05-28",
+      "description": "OpenAI releases GPT-3 (175B parameters). First model to demonstrate genuine few-shot learning — give it examples in the prompt and it generalises. Launches the era of prompt engineering. API-only access model creates the foundation-model-as-a-service business model.",
+      "event_type": "launch",
+      "signal": {
+        "score": 9,
+        "category": "capability_jump"
+      },
+      "entities": {
+        "companies": ["openai"],
+        "models": ["gpt-3"],
+        "papers": ["gpt-3-paper"],
+        "people": ["tom-brown"]
+      },
+      "preceded_by": "evt-201902-gpt2",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202101-dalle1",
+      "name": "DALL-E 1 Announced",
+      "date": "2021-01-05",
+      "description": "OpenAI announces DALL-E — a 12B parameter version of GPT-3 that generates images from text descriptions. First major demonstration that Transformers work for image generation, not just text. Opens the text-to-image era.",
+      "event_type": "announcement",
+      "signal": {
+        "score": 7,
+        "category": "new_modality"
+      },
+      "entities": {
+        "companies": ["openai"],
+        "models": ["dall-e-1"],
+        "papers": [],
+        "people": []
+      },
+      "preceded_by": "evt-202005-gpt3",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202204-dalle2",
+      "name": "DALL-E 2 Released",
+      "date": "2022-04-06",
+      "description": "OpenAI releases DALL-E 2 using diffusion models instead of the autoregressive approach of DALL-E 1. Major quality leap in text-to-image generation. Uses CLIP embeddings for text-image alignment. Commercial API access.",
+      "event_type": "launch",
+      "signal": {
+        "score": 6,
+        "category": "capability_jump"
+      },
+      "entities": {
+        "companies": ["openai"],
+        "models": ["dall-e-2"],
+        "papers": [],
+        "people": []
+      },
+      "preceded_by": "evt-202101-dalle1",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202208-stable-diffusion",
+      "name": "Stable Diffusion Open-Sourced",
+      "date": "2022-08-22",
+      "description": "Stability AI open-sources Stable Diffusion. First high-quality text-to-image model anyone can run locally. Triggers an explosion of fine-tunes, ControlNet, LoRAs, and community-built tooling. Proves open-source can match or exceed closed models in image generation.",
+      "event_type": "open_source",
+      "signal": {
+        "score": 9,
+        "category": "market_shift"
+      },
+      "entities": {
+        "companies": ["stability-ai"],
+        "models": ["stable-diffusion-1"],
+        "papers": ["latent-diffusion-paper"],
+        "people": ["emad-mostaque", "robin-rombach"]
+      },
+      "preceded_by": "evt-202204-dalle2",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202211-chatgpt",
+      "name": "ChatGPT Launched",
+      "date": "2022-11-30",
+      "description": "OpenAI launches ChatGPT — GPT-3.5 with RLHF in a conversational interface. Reaches 100M users in 2 months. Triggers the AI arms race. Every tech company pivots to AI. The moment AI went from research to mainstream consumer product. Nothing was the same after.",
+      "event_type": "product",
+      "signal": {
+        "score": 10,
+        "category": "market_shift"
+      },
+      "entities": {
+        "companies": ["openai"],
+        "models": ["gpt-3.5-turbo"],
+        "papers": [],
+        "people": ["sam-altman"]
+      },
+      "preceded_by": "evt-202005-gpt3",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202302-bing-chat",
+      "name": "Bing Chat (GPT-4 Preview)",
+      "date": "2023-02-07",
+      "description": "Microsoft launches Bing Chat powered by an early version of GPT-4. First integration of a frontier LLM into a search engine at scale. The 'Sydney' personality incidents become the first mainstream AI safety conversation.",
+      "event_type": "product",
+      "signal": {
+        "score": 5,
+        "category": "infrastructure_shift"
+      },
+      "entities": {
+        "companies": ["microsoft", "openai"],
+        "models": ["gpt-4"],
+        "papers": [],
+        "people": []
+      },
+      "preceded_by": "evt-202211-chatgpt",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202303-gpt4",
+      "name": "GPT-4 Released",
+      "date": "2023-03-14",
+      "description": "OpenAI releases GPT-4 — multimodal (text + image input), significantly more capable than GPT-3.5. Passes the bar exam. First model where enterprises start building real production workflows. Sets the benchmark that every competitor chases for the next year.",
+      "event_type": "launch",
+      "signal": {
+        "score": 8,
+        "category": "capability_jump"
+      },
+      "entities": {
+        "companies": ["openai"],
+        "models": ["gpt-4"],
+        "papers": ["gpt-4-technical-report"],
+        "people": []
+      },
+      "preceded_by": "evt-202211-chatgpt",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202303-claude1",
+      "name": "Claude 1 Released",
+      "date": "2023-03-14",
+      "description": "Anthropic releases Claude 1 via API. Constitutional AI approach — trained with a set of principles rather than pure RLHF. Positions as the safety-focused alternative to GPT-4. First serious competitor to OpenAI in the frontier model space.",
+      "event_type": "launch",
+      "signal": {
+        "score": 6,
+        "category": "market_shift"
+      },
+      "entities": {
+        "companies": ["anthropic"],
+        "models": ["claude-1"],
+        "papers": ["constitutional-ai"],
+        "people": ["dario-amodei", "daniela-amodei"]
+      },
+      "preceded_by": "evt-202211-chatgpt",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202307-llama2",
+      "name": "Llama 2 Open-Released",
+      "date": "2023-07-18",
+      "description": "Meta releases Llama 2 with a permissive commercial license. 7B, 13B, and 70B parameter variants. Triggers the open-weight model revolution. Every startup can now fine-tune a frontier-quality base model. Fundamentally changes the economics of AI.",
+      "event_type": "open_source",
+      "signal": {
+        "score": 8,
+        "category": "market_shift"
+      },
+      "entities": {
+        "companies": ["meta"],
+        "models": ["llama-2-7b", "llama-2-13b", "llama-2-70b"],
+        "papers": ["llama-2-paper"],
+        "people": ["mark-zuckerberg"]
+      },
+      "preceded_by": null,
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202307-claude2",
+      "name": "Claude 2 Released",
+      "date": "2023-07-11",
+      "description": "Anthropic releases Claude 2 with 100K context window and improved coding ability. Longer context becomes a differentiator. Available via API and claude.ai consumer product.",
+      "event_type": "launch",
+      "signal": {
+        "score": 5,
+        "category": "capability_jump"
+      },
+      "entities": {
+        "companies": ["anthropic"],
+        "models": ["claude-2"],
+        "papers": [],
+        "people": []
+      },
+      "preceded_by": "evt-202303-claude1",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202312-gemini1",
+      "name": "Gemini 1 Announced",
+      "date": "2023-12-06",
+      "description": "Google DeepMind announces Gemini 1.0 — Ultra, Pro, and Nano sizes. Native multimodal (trained on text, image, audio, video from the start, not bolted on). Google's answer to GPT-4. Controversy over cherry-picked demo video.",
+      "event_type": "launch",
+      "signal": {
+        "score": 6,
+        "category": "capability_jump"
+      },
+      "entities": {
+        "companies": ["google-deepmind"],
+        "models": ["gemini-1-ultra", "gemini-1-pro", "gemini-1-nano"],
+        "papers": ["gemini-technical-report"],
+        "people": ["demis-hassabis"]
+      },
+      "preceded_by": null,
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202312-mistral-mixtral",
+      "name": "Mistral 7B / Mixtral Released",
+      "date": "2023-12-11",
+      "description": "Mistral AI releases Mixtral 8x7B — a mixture-of-experts model that matches GPT-3.5 quality at a fraction of the compute. Mistral 7B already proved a small team could train competitive models. Mixtral proves MoE architecture works at scale for open models. European AI arrives.",
+      "event_type": "open_source",
+      "signal": {
+        "score": 7,
+        "category": "new_architecture"
+      },
+      "entities": {
+        "companies": ["mistral"],
+        "models": ["mistral-7b", "mixtral-8x7b"],
+        "papers": [],
+        "people": ["arthur-mensch"]
+      },
+      "preceded_by": null,
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202402-gemini15",
+      "name": "Gemini 1.5 (1M Context)",
+      "date": "2024-02-15",
+      "description": "Google releases Gemini 1.5 Pro with 1 million token context window, later extended to 2M. Based on a new MoE architecture. Proves that extremely long context is achievable. Changes how people think about retrieval vs just stuffing context.",
+      "event_type": "launch",
+      "signal": {
+        "score": 7,
+        "category": "capability_jump"
+      },
+      "entities": {
+        "companies": ["google-deepmind"],
+        "models": ["gemini-1.5-pro"],
+        "papers": ["gemini-1.5-technical-report"],
+        "people": []
+      },
+      "preceded_by": "evt-202312-gemini1",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202403-claude3",
+      "name": "Claude 3 Family Released",
+      "date": "2024-03-04",
+      "description": "Anthropic releases Claude 3 in three tiers: Opus (largest, most capable), Sonnet (balanced), and Haiku (fast, cheap). Opus matches or beats GPT-4 on most benchmarks. Establishes the tiered model family pattern that becomes industry standard. Vision capabilities included.",
+      "event_type": "launch",
+      "signal": {
+        "score": 7,
+        "category": "capability_jump"
+      },
+      "entities": {
+        "companies": ["anthropic"],
+        "models": ["claude-3-opus", "claude-3-sonnet", "claude-3-haiku"],
+        "papers": ["claude-3-model-card"],
+        "people": []
+      },
+      "preceded_by": "evt-202307-claude2",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202404-llama3",
+      "name": "Llama 3 Released",
+      "date": "2024-04-18",
+      "description": "Meta releases Llama 3 (8B and 70B). Trained on 15T tokens — significantly more data than Llama 2. Closes the gap with closed models further. The 8B model becomes the default open-source choice for many applications.",
+      "event_type": "open_source",
+      "signal": {
+        "score": 6,
+        "category": "capability_jump"
+      },
+      "entities": {
+        "companies": ["meta"],
+        "models": ["llama-3-8b", "llama-3-70b"],
+        "papers": [],
+        "people": []
+      },
+      "preceded_by": "evt-202307-llama2",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202405-gpt4o",
+      "name": "GPT-4o Released",
+      "date": "2024-05-13",
+      "description": "OpenAI releases GPT-4o ('omni') — natively multimodal across text, image, and audio with near-real-time voice conversation. The live demo shows natural voice interaction with emotional tone. First model to feel like a genuine conversational AI assistant.",
+      "event_type": "launch",
+      "signal": {
+        "score": 7,
+        "category": "new_modality"
+      },
+      "entities": {
+        "companies": ["openai"],
+        "models": ["gpt-4o"],
+        "papers": [],
+        "people": []
+      },
+      "preceded_by": "evt-202303-gpt4",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202406-claude35-sonnet",
+      "name": "Claude 3.5 Sonnet Released",
+      "date": "2024-06-20",
+      "description": "Anthropic releases Claude 3.5 Sonnet — a mid-tier model that outperforms Claude 3 Opus on most benchmarks at lower cost and higher speed. Proves that smaller, better-trained models can beat larger predecessors. Becomes the default for coding and many production use cases.",
+      "event_type": "launch",
+      "signal": {
+        "score": 7,
+        "category": "capability_jump"
+      },
+      "entities": {
+        "companies": ["anthropic"],
+        "models": ["claude-3.5-sonnet"],
+        "papers": [],
+        "people": []
+      },
+      "preceded_by": "evt-202403-claude3",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202409-o1",
+      "name": "o1 Released (Reasoning Models)",
+      "date": "2024-09-12",
+      "description": "OpenAI releases o1 — the first 'reasoning' model that uses chain-of-thought at inference time to solve harder problems. Spends more compute thinking before answering. Opens a new scaling axis: test-time compute. Triggers the reasoning model arms race.",
+      "event_type": "launch",
+      "signal": {
+        "score": 9,
+        "category": "new_paradigm"
+      },
+      "entities": {
+        "companies": ["openai"],
+        "models": ["o1-preview", "o1-mini"],
+        "papers": [],
+        "people": []
+      },
+      "preceded_by": "evt-202405-gpt4o",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202412-sora",
+      "name": "Sora Released",
+      "date": "2024-12-09",
+      "description": "OpenAI publicly releases Sora — text-to-video model capable of generating 1080p videos up to 1 minute. Long-anticipated after the initial preview in February 2024. Impressive quality but limited availability and high cost constrain adoption.",
+      "event_type": "launch",
+      "signal": {
+        "score": 6,
+        "category": "new_modality"
+      },
+      "entities": {
+        "companies": ["openai"],
+        "models": ["sora"],
+        "papers": [],
+        "people": []
+      },
+      "preceded_by": null,
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202501-deepseek-r1",
+      "name": "DeepSeek-R1 Open-Sourced",
+      "date": "2025-01-20",
+      "description": "DeepSeek open-sources R1 — a reasoning model that matches o1 performance at a fraction of the training cost. Trained with reinforcement learning on reasoning tasks. Proves reasoning capability isn't exclusive to closed labs with massive budgets. Shakes the entire industry's assumptions about compute requirements.",
+      "event_type": "open_source",
+      "signal": {
+        "score": 9,
+        "category": "market_shift"
+      },
+      "entities": {
+        "companies": ["deepseek"],
+        "models": ["deepseek-r1"],
+        "papers": ["deepseek-r1-paper"],
+        "people": []
+      },
+      "preceded_by": "evt-202409-o1",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202502-claude35-opus",
+      "name": "Claude 3.5 Opus Released",
+      "date": "2025-02-24",
+      "description": "Anthropic releases Claude 3.5 Opus — the largest and most capable model in the Claude 3.5 generation. Strong performance on complex reasoning, analysis, and long-form tasks. Extended thinking mode for step-by-step reasoning.",
+      "event_type": "launch",
+      "signal": {
+        "score": 6,
+        "category": "capability_jump"
+      },
+      "entities": {
+        "companies": ["anthropic"],
+        "models": ["claude-3.5-opus"],
+        "papers": [],
+        "people": []
+      },
+      "preceded_by": "evt-202406-claude35-sonnet",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202503-claude-code",
+      "name": "Claude Code Launched",
+      "date": "2025-03-05",
+      "description": "Anthropic launches Claude Code — an agentic CLI tool that reads, writes, and executes code directly in the developer's environment. First major deployment of an AI coding agent with full filesystem and terminal access from a frontier lab. Shifts AI-assisted coding from autocomplete to autonomous task execution.",
+      "event_type": "product",
+      "signal": {
+        "score": 7,
+        "category": "infrastructure_shift"
+      },
+      "entities": {
+        "companies": ["anthropic"],
+        "models": ["claude-3.5-opus", "claude-3.5-sonnet"],
+        "papers": [],
+        "people": []
+      },
+      "preceded_by": "evt-202502-claude35-opus",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202506-gpt5",
+      "name": "GPT-5 Announced",
+      "date": "2025-06-01",
+      "description": "OpenAI announces GPT-5 — unifying the GPT and o-series into a single model. Native reasoning, multimodal input/output, and significantly improved agentic capabilities. Reclaims benchmark leadership from Claude and DeepSeek in several categories.",
+      "event_type": "announcement",
+      "signal": {
+        "score": null,
+        "category": "capability_jump",
+        "_note": "Signal score TBD — too recent for 6-month historical assessment"
+      },
+      "entities": {
+        "companies": ["openai"],
+        "models": ["gpt-5"],
+        "papers": [],
+        "people": []
+      },
+      "preceded_by": "evt-202409-o1",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202509-llama4",
+      "name": "Llama 4 Released",
+      "date": "2025-09-01",
+      "description": "Meta releases Llama 4 — mixture-of-experts architecture, native multimodal, available in multiple sizes. Significant jump in reasoning and multilingual capability. Continues Meta's strategy of open-weight releases to commoditise the model layer.",
+      "event_type": "open_source",
+      "signal": {
+        "score": 7,
+        "category": "capability_jump"
+      },
+      "entities": {
+        "companies": ["meta"],
+        "models": ["llama-4"],
+        "papers": [],
+        "people": []
+      },
+      "preceded_by": "evt-202404-llama3",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202511-claude45",
+      "name": "Claude 4.5 Released",
+      "date": "2025-11-01",
+      "description": "Anthropic releases Claude 4.5 — Sonnet and Haiku variants. Major improvements in coding, agentic tool use, and instruction following. Extended thinking becomes a core feature across the lineup.",
+      "event_type": "launch",
+      "signal": {
+        "score": 7,
+        "category": "capability_jump"
+      },
+      "entities": {
+        "companies": ["anthropic"],
+        "models": ["claude-4.5-sonnet", "claude-4.5-haiku"],
+        "papers": [],
+        "people": []
+      },
+      "preceded_by": "evt-202502-claude35-opus",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202601-claude-opus46",
+      "name": "Claude Opus 4.6 Released",
+      "date": "2026-01-15",
+      "description": "Anthropic releases Claude Opus 4.6 with 1M context window. Most capable Claude model to date. Deep reasoning, complex multi-step tasks, and extended context for large codebases and document analysis.",
+      "event_type": "launch",
+      "signal": {
+        "score": 7,
+        "category": "capability_jump"
+      },
+      "entities": {
+        "companies": ["anthropic"],
+        "models": ["claude-opus-4-6"],
+        "papers": [],
+        "people": []
+      },
+      "preceded_by": "evt-202511-claude45",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202602-xai-spacex-merge",
+      "name": "xAI Merges with SpaceX",
+      "date": "2026-02-01",
+      "description": "Elon Musk merges xAI with SpaceX, combining AI capabilities with space infrastructure. Gives xAI access to SpaceX's engineering talent and compute infrastructure. Raises questions about AI governance within a vertically integrated space-AI company.",
+      "event_type": "merger",
+      "signal": {
+        "score": 6,
+        "category": "market_shift"
+      },
+      "entities": {
+        "companies": ["xai", "spacex"],
+        "models": ["grok"],
+        "papers": [],
+        "people": ["elon-musk"]
+      },
+      "preceded_by": null,
+      "status": "active",
+      "last_updated": "2026-03-20"
+    },
+    {
+      "id": "evt-202603-claude-code-dispatch",
+      "name": "Claude Code Dispatch + Channels",
+      "date": "2026-03-20",
+      "description": "Anthropic ships dispatch and channels features for Claude Code — enabling multi-agent orchestration and communication between agent instances. Steps toward autonomous agent teams working in parallel on complex projects.",
+      "event_type": "product",
+      "signal": {
+        "score": 5,
+        "category": "infrastructure_shift"
+      },
+      "entities": {
+        "companies": ["anthropic"],
+        "models": ["claude-opus-4-6", "claude-4.5-sonnet"],
+        "papers": [],
+        "people": []
+      },
+      "preceded_by": "evt-202503-claude-code",
+      "status": "active",
+      "last_updated": "2026-03-20"
+    }
+  ]
+}

@@ -3,828 +3,475 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Model Registry — Global Foundation Model Intelligence</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>AI Intel — Global Foundation Model Intelligence</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --bg:#080b12;--surface:#0d1117;--surface2:#131920;--surface3:#1a2030;
+      --cyan:#00b4ff;--cyan-dim:rgba(0,180,255,.08);--cyan-glow:rgba(0,180,255,.25);
+      --green:#00e676;--green-dim:rgba(0,230,118,.1);
+      --amber:#ffab00;--amber-dim:rgba(255,171,0,.1);
+      --red:#ff5252;--red-dim:rgba(255,82,82,.1);
+      --purple:#b388ff;--purple-dim:rgba(179,136,255,.1);
+      --white:#e8eaed;--grey:#8b949e;--grey-dim:#484f58;
+      --border:rgba(0,180,255,.08);
+      --font:'Inter',-apple-system,sans-serif;--mono:'JetBrains Mono',monospace;
+    }
+    html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+    body{font-family:var(--font);background:var(--bg);color:var(--white);overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
 
-    :root {
-      --bg: #080b12;
-      --surface: #0d1117;
-      --surface-2: #131920;
-      --cyan: #00b4ff;
-      --cyan-dim: rgba(0,180,255,0.08);
-      --cyan-glow: rgba(0,180,255,0.25);
-      --green: #00e676;
-      --green-dim: rgba(0,230,118,0.10);
-      --amber: #ffab00;
-      --amber-dim: rgba(255,171,0,0.10);
-      --red: #ff5252;
-      --red-dim: rgba(255,82,82,0.10);
-      --purple: #b388ff;
-      --purple-dim: rgba(179,136,255,0.10);
-      --white: #e8eaed;
-      --grey: #8b949e;
-      --grey-dim: #484f58;
-      --border: rgba(0,180,255,0.08);
-      --font: 'Inter', -apple-system, sans-serif;
-      --mono: 'JetBrains Mono', monospace;
-    }
+    /* NAV */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;height:48px;background:rgba(8,11,18,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+    .nav-left{display:flex;align-items:center;gap:10px}
+    .nav-pulse{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(0,230,118,.6);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+    .nav-brand{font-size:13px;font-weight:600}
+    .nav-brand span{color:var(--grey);font-weight:400}
+    .nav-tabs{display:flex;gap:0;height:48px}
+    .nav-tab{padding:0 16px;font-size:12px;font-weight:500;color:var(--grey);display:flex;align-items:center;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s}
+    .nav-tab:hover{color:var(--white)}
+    .nav-tab.active{color:var(--cyan);border-bottom-color:var(--cyan)}
+    .nav-meta{display:flex;gap:16px;font-size:11px;font-family:var(--mono);color:var(--grey)}
+    .nav-meta b{color:var(--cyan);font-weight:500}
 
-    html { -webkit-font-smoothing: antialiased; }
-    body { font-family: var(--font); background: var(--bg); color: var(--white); overflow-x: hidden; }
+    /* VIEWS */
+    .view{display:none;padding-top:48px;min-height:100vh}
+    .view.active{display:block}
 
-    /* ===== NAV ===== */
-    .topbar {
-      position: fixed; top:0; left:0; right:0; z-index:100;
-      height: 48px;
-      background: rgba(8,11,18,0.85);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 24px;
-    }
-    .topbar-left { display:flex; align-items:center; gap:10px; }
-    .topbar-logo {
-      width:8px; height:8px; border-radius:50%;
-      background: var(--green);
-      box-shadow: 0 0 8px rgba(0,230,118,0.6);
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
-    .topbar-title { font-size:13px; font-weight:600; letter-spacing:0.03em; }
-    .topbar-title span { color:var(--grey); font-weight:400; }
-    .topbar-right { display:flex; gap:20px; }
-    .topbar-stat { font-size:11px; font-family:var(--mono); color:var(--grey); }
-    .topbar-stat b { color:var(--cyan); font-weight:500; }
+    /* HERO */
+    .hero{text-align:center;padding:40px 20px 24px;background:linear-gradient(180deg,rgba(0,180,255,.03) 0%,transparent 100%)}
+    .hero h1{font-size:clamp(24px,4vw,40px);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:8px}
+    .hero h1 .gl{color:var(--cyan);text-shadow:0 0 30px rgba(0,180,255,.3)}
+    .hero p{font-size:clamp(12px,1.2vw,15px);color:var(--grey);max-width:500px;margin:0 auto}
 
-    /* ===== LAYOUT ===== */
-    .app { padding-top: 48px; min-height: 100vh; }
+    /* STATS */
+    .stats{display:flex;justify-content:center;gap:2px;padding:16px 20px 0;max-width:800px;margin:0 auto}
+    .stat{flex:1;background:var(--surface);border:1px solid var(--border);padding:14px 8px;text-align:center}
+    .stat:first-child{border-radius:8px 0 0 8px}.stat:last-child{border-radius:0 8px 8px 0}
+    .stat .v{font-size:clamp(18px,2.5vw,28px);font-weight:700;font-family:var(--mono);color:var(--cyan)}
+    .stat .l{font-size:9px;color:var(--grey);text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
 
-    /* ===== HERO BANNER ===== */
-    .hero-banner {
-      text-align: center;
-      padding: 48px 24px 24px;
-      background: linear-gradient(180deg, rgba(0,180,255,0.03) 0%, transparent 100%);
-    }
-    .hero-banner h1 {
-      font-size: clamp(28px, 4vw, 44px);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 10px;
-    }
-    .hero-banner h1 .glow {
-      color: var(--cyan);
-      text-shadow: 0 0 40px rgba(0,180,255,0.3);
-    }
-    .hero-banner p {
-      font-size: clamp(13px, 1.3vw, 16px);
-      color: var(--grey);
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.5;
-    }
+    /* SEARCH + FILTERS */
+    .toolbar{max-width:1200px;margin:20px auto 0;padding:0 20px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .search-wrap{flex:1;min-width:200px;position:relative}
+    .search-wrap input{width:100%;padding:9px 12px 9px 34px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--white);font-size:13px;font-family:var(--font);outline:none;transition:border-color .2s}
+    .search-wrap input:focus{border-color:var(--cyan)}
+    .search-wrap input::placeholder{color:var(--grey-dim)}
+    .search-wrap::before{content:'';position:absolute;left:11px;top:50%;transform:translateY(-50%);width:12px;height:12px;border:2px solid var(--grey-dim);border-radius:50%}
+    .pill{padding:6px 14px;background:transparent;border:1px solid rgba(255,255,255,.1);border-radius:980px;color:var(--grey);font-size:11px;font-weight:500;font-family:var(--font);cursor:pointer;transition:all .2s}
+    .pill:hover{border-color:rgba(255,255,255,.2);color:var(--white)}
+    .pill.on{border-color:var(--cyan);color:var(--cyan);background:var(--cyan-dim)}
 
-    /* ===== STATS ROW ===== */
-    .stats-row {
-      display: flex;
-      justify-content: center;
-      gap: 2px;
-      padding: 24px 24px 0;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .stat-box {
-      flex: 1;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 16px 12px;
-      text-align: center;
-    }
-    .stat-box:first-child { border-radius: 10px 0 0 10px; }
-    .stat-box:last-child { border-radius: 0 10px 10px 0; }
-    .stat-box .val {
-      font-size: clamp(22px, 3vw, 32px);
-      font-weight: 700;
-      font-family: var(--mono);
-      color: var(--cyan);
-    }
-    .stat-box .lbl {
-      font-size: 10px;
-      color: var(--grey);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-top: 2px;
-    }
+    /* ===== MAP VIEW ===== */
+    .map-wrap{max-width:1200px;margin:20px auto;padding:0 20px}
+    .map-box{position:relative;width:100%;aspect-ratio:2/1;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .map-svg{width:100%;height:100%}
+    .continent{fill:rgba(0,180,255,.06);stroke:rgba(0,180,255,.12);stroke-width:.5}
+    .grid-line{stroke:rgba(0,180,255,.03);stroke-width:.5}
+    .company-dot{cursor:pointer;transition:r .2s}
+    .company-dot:hover{r:8}
+    .dot-glow{animation:dg 3s ease-in-out infinite}
+    @keyframes dg{0%,100%{opacity:.3;r:12}50%{opacity:.06;r:20}}
+    .map-tip{position:absolute;pointer-events:none;background:rgba(8,11,18,.95);border:1px solid var(--cyan);border-radius:8px;padding:10px 14px;max-width:300px;opacity:0;transform:translateY(6px);transition:opacity .15s,transform .15s;z-index:50;box-shadow:0 4px 20px rgba(0,0,0,.5)}
+    .map-tip.show{opacity:1;transform:translateY(0)}
+    .tip-city{font-size:12px;font-weight:600;color:var(--cyan);margin-bottom:6px}
+    .tip-co{display:flex;align-items:center;gap:6px;padding:3px 0;font-size:11px}
+    .tip-co .n{font-weight:600;flex-shrink:0}.tip-co .m{font-family:var(--mono);font-size:9px;color:var(--grey)}
+    .tag{display:inline-block;font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:.03em;padding:2px 6px;border-radius:3px;flex-shrink:0}
+    .tag-open{color:var(--green);background:var(--green-dim)}.tag-closed{color:var(--red);background:var(--red-dim)}
+    .tag-mixed{color:var(--purple);background:var(--purple-dim)}.tag-open-weight{color:var(--amber);background:var(--amber-dim)}
+    .map-legend{position:absolute;bottom:12px;left:12px;background:rgba(8,11,18,.9);border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-size:10px;color:var(--grey);display:flex;flex-direction:column;gap:4px}
+    .leg-i{display:flex;align-items:center;gap:6px}
+    .leg-d{width:7px;height:7px;border-radius:50%}
 
-    /* ===== MAP SECTION ===== */
-    .map-section {
-      position: relative;
-      padding: 32px 24px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
+    /* ===== TIMELINE VIEW ===== */
+    .tl-container{max-width:900px;margin:20px auto;padding:0 20px 80px}
+    .tl-line{position:relative;padding-left:48px}
+    .tl-line::before{content:'';position:absolute;left:19px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--cyan),rgba(0,180,255,.1))}
+    .tl-year{font-size:20px;font-weight:700;color:var(--cyan);margin:32px 0 16px;position:relative}
+    .tl-year::before{content:'';position:absolute;left:-33px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan-glow)}
+    .tl-event{position:relative;margin-bottom:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;transition:border-color .2s}
+    .tl-event:hover{border-color:rgba(0,180,255,.2)}
+    .tl-event::before{content:'';position:absolute;left:-33px;top:20px;width:8px;height:8px;border-radius:50%;border:2px solid var(--grey-dim);background:var(--bg)}
+    .tl-event.s10::before,.tl-event.s9::before{border-color:var(--cyan);background:var(--cyan);box-shadow:0 0 6px var(--cyan-glow)}
+    .tl-event.s8::before,.tl-event.s7::before{border-color:var(--green);background:var(--green)}
+    .tl-event.s6::before,.tl-event.s5::before{border-color:var(--amber)}
+    .tl-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px}
+    .tl-name{font-size:14px;font-weight:600}
+    .tl-date{font-size:10px;font-family:var(--mono);color:var(--grey);flex-shrink:0}
+    .tl-desc{font-size:12px;color:var(--grey);line-height:1.5}
+    .tl-signal{display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px}
+    .tl-signal.high{color:var(--cyan);background:var(--cyan-dim)}
+    .tl-signal.mid{color:var(--green);background:var(--green-dim)}
+    .tl-signal.low{color:var(--grey);background:rgba(255,255,255,.05)}
 
-    .map-container {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 2/1;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      cursor: crosshair;
-    }
+    /* ===== MODELS VIEW ===== */
+    .models-container{max-width:1200px;margin:20px auto;padding:0 20px 80px}
+    .family-section{margin-bottom:40px}
+    .family-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+    .family-header h3{font-size:16px;font-weight:600}
+    .family-badge{font-size:10px;font-family:var(--mono);color:var(--cyan);background:var(--cyan-dim);padding:2px 8px;border-radius:4px}
+    .model-tree{display:flex;flex-direction:column;gap:4px;padding-left:16px;border-left:2px solid rgba(0,180,255,.1)}
+    .model-node{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;transition:all .2s;cursor:default;position:relative}
+    .model-node::before{content:'';position:absolute;left:-18px;top:50%;width:16px;height:2px;background:rgba(0,180,255,.15)}
+    .model-node:hover{border-color:rgba(0,180,255,.2);background:var(--surface2)}
+    .mn-name{font-size:13px;font-weight:600;min-width:140px}
+    .mn-date{font-size:10px;font-family:var(--mono);color:var(--grey);min-width:80px}
+    .mn-params{font-size:10px;font-family:var(--mono);color:var(--amber);min-width:70px}
+    .mn-cap{font-size:11px;color:var(--grey);flex:1;line-height:1.4}
+    .mn-mod{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:2px 6px;border-radius:3px;color:var(--cyan);background:var(--cyan-dim)}
 
-    .map-svg {
-      width: 100%;
-      height: 100%;
-    }
+    /* ===== COMPANIES VIEW ===== */
+    .co-grid{max-width:1200px;margin:20px auto;padding:0 20px 80px;display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}
+    .co-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px;transition:border-color .2s}
+    .co-card:hover{border-color:rgba(0,180,255,.2)}
+    .co-name{font-size:15px;font-weight:700;margin-bottom:2px}
+    .co-meta{font-size:11px;color:var(--grey);margin-bottom:10px}
+    .co-models{font-size:11px;font-family:var(--mono);color:var(--cyan);margin-bottom:8px}
+    .co-funding{font-size:11px;color:var(--grey)}
+    .co-val{font-size:13px;font-weight:600;color:var(--amber);margin-top:6px}
+    .co-type{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:2px 6px;border-radius:3px;margin-top:8px;display:inline-block}
+    .co-type.trainer{color:var(--cyan);background:var(--cyan-dim)}
+    .co-type.builder{color:var(--green);background:var(--green-dim)}
+    .co-type.infrastructure{color:var(--amber);background:var(--amber-dim)}
+    .co-type.research{color:var(--purple);background:var(--purple-dim)}
 
-    /* Grid lines */
-    .grid-line { stroke: rgba(0,180,255,0.04); stroke-width: 0.5; }
-    .equator { stroke: rgba(0,180,255,0.08); stroke-width: 0.8; stroke-dasharray: 4 4; }
+    /* FOOTER */
+    .footer{padding:20px;border-top:1px solid var(--border);text-align:center;font-size:11px;color:var(--grey-dim)}
+    .footer a{color:var(--cyan)}
 
-    /* Continent fills */
-    .continent {
-      fill: rgba(0,180,255,0.06);
-      stroke: rgba(0,180,255,0.15);
-      stroke-width: 0.5;
-      transition: fill 0.3s;
+    /* RESPONSIVE */
+    @media(max-width:768px){
+      .nav-meta{display:none}.map-legend{display:none}
+      .co-grid{grid-template-columns:1fr}
+      .mn-cap{display:none}.mn-params{display:none}
+      .stats{flex-wrap:wrap}.stat{min-width:calc(50% - 1px)}
     }
 
-    /* Company dots */
-    .company-dot {
-      cursor: pointer;
-      transition: r 0.2s ease;
-    }
-    .company-dot:hover { r: 8; }
-
-    .dot-glow {
-      animation: dotPulse 3s ease-in-out infinite;
-    }
-    @keyframes dotPulse { 0%,100%{opacity:0.3;r:12;} 50%{opacity:0.08;r:20;} }
-
-    /* Tooltip */
-    .map-tooltip {
-      position: absolute;
-      pointer-events: none;
-      background: rgba(8,11,18,0.95);
-      border: 1px solid var(--cyan);
-      border-radius: 8px;
-      padding: 12px 16px;
-      max-width: 320px;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.2s, transform 0.2s;
-      z-index: 50;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.5), 0 0 12px rgba(0,180,255,0.1);
-    }
-    .map-tooltip.show { opacity:1; transform:translateY(0); }
-    .tooltip-city { font-size:13px; font-weight:600; color:var(--cyan); margin-bottom:8px; }
-    .tooltip-company {
-      display: flex; align-items: center; gap: 8px;
-      padding: 4px 0;
-      font-size: 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-    .tooltip-company:last-child { border-bottom: none; }
-    .tooltip-company .name { font-weight: 600; flex-shrink: 0; }
-    .tooltip-company .models { font-family: var(--mono); font-size: 10px; color: var(--grey); }
-    .tooltip-tag {
-      display: inline-block;
-      font-size: 8px; font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 2px 6px;
-      border-radius: 3px;
-      flex-shrink: 0;
-    }
-    .tooltip-tag.open { color:var(--green); background:var(--green-dim); }
-    .tooltip-tag.closed { color:var(--red); background:var(--red-dim); }
-    .tooltip-tag.mixed { color:var(--purple); background:var(--purple-dim); }
-    .tooltip-tag.open-weight { color:var(--amber); background:var(--amber-dim); }
-
-    /* Map legend */
-    .map-legend {
-      position: absolute;
-      bottom: 16px; left: 16px;
-      background: rgba(8,11,18,0.9);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .legend-title {
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--grey);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 2px;
-    }
-    .legend-item {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 11px; color: var(--grey);
-    }
-    .legend-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-    }
-
-    /* Map coordinates display */
-    .map-coords {
-      position: absolute;
-      top: 16px; right: 16px;
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--grey-dim);
-      background: rgba(8,11,18,0.8);
-      padding: 6px 10px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-    }
-
-    /* ===== DETAIL PANEL ===== */
-    .detail-panel {
-      position: fixed;
-      top: 48px; right: -420px;
-      width: 400px; height: calc(100vh - 48px);
-      background: var(--surface);
-      border-left: 1px solid var(--border);
-      z-index: 90;
-      overflow-y: auto;
-      transition: right 0.3s cubic-bezier(0.16,1,0.3,1);
-      padding: 24px;
-    }
-    .detail-panel.open { right: 0; }
-    .detail-close {
-      position: absolute; top: 16px; right: 16px;
-      background: none; border: 1px solid var(--border);
-      color: var(--grey); font-size: 18px;
-      width: 32px; height: 32px; border-radius: 8px;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: all 0.2s;
-    }
-    .detail-close:hover { border-color: var(--cyan); color: var(--cyan); }
-    .detail-region {
-      font-size: 11px; font-weight: 600;
-      color: var(--cyan); text-transform: uppercase;
-      letter-spacing: 0.06em; margin-bottom: 6px;
-    }
-    .detail-city { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
-    .detail-count { font-size: 13px; color: var(--grey); margin-bottom: 24px; }
-    .detail-company {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px;
-      margin-bottom: 12px;
-      transition: border-color 0.2s;
-    }
-    .detail-company:hover { border-color: rgba(0,180,255,0.2); }
-    .detail-company-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
-    .detail-company-models { font-family: var(--mono); font-size: 11px; color: var(--grey); margin-bottom: 8px; }
-    .detail-company-notes { font-size: 12px; color: var(--grey); }
-    .detail-company-tag {
-      display: inline-block; font-size: 9px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 0.04em;
-      padding: 3px 8px; border-radius: 4px; margin-top: 8px;
-    }
-    .detail-company-tag.open { color:var(--green); background:var(--green-dim); }
-    .detail-company-tag.closed { color:var(--red); background:var(--red-dim); }
-    .detail-company-tag.mixed { color:var(--purple); background:var(--purple-dim); }
-    .detail-company-tag.open-weight { color:var(--amber); background:var(--amber-dim); }
-
-    /* ===== FILTER BAR ===== */
-    .filter-bar {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      padding: 0 24px 8px;
-      flex-wrap: wrap;
-    }
-    .filter-pill {
-      padding: 6px 16px;
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 980px;
-      color: var(--grey);
-      font-size: 12px; font-weight: 500;
-      font-family: var(--font);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .filter-pill:hover { border-color: rgba(0,180,255,0.3); color: var(--white); }
-    .filter-pill.active { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); }
-
-    /* ===== TABLE SECTION ===== */
-    .table-section {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 32px 24px 80px;
-    }
-    .table-header {
-      text-align: center;
-      margin-bottom: 32px;
-    }
-    .table-header h2 {
-      font-size: clamp(22px, 3vw, 32px);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
-    }
-    .table-header p { font-size: 14px; color: var(--grey); }
-
-    .search-bar {
-      max-width: 480px;
-      margin: 0 auto 32px;
-      position: relative;
-    }
-    .search-bar input {
-      width: 100%;
-      padding: 12px 16px 12px 40px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--white);
-      font-size: 14px; font-family: var(--font);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .search-bar input:focus { border-color: var(--cyan); }
-    .search-bar input::placeholder { color: var(--grey-dim); }
-    .search-icon {
-      position: absolute; left: 14px; top: 50%;
-      transform: translateY(-50%);
-      width: 16px; height: 16px;
-      border: 2px solid var(--grey-dim);
-      border-radius: 50%;
-    }
-    .search-icon::after {
-      content:''; position: absolute;
-      right: -5px; bottom: -5px;
-      width: 2px; height: 6px;
-      background: var(--grey-dim);
-      transform: rotate(-45deg);
-    }
-
-    .region-group { margin-bottom: 40px; }
-    .region-row {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 12px; padding-bottom: 10px;
-      border-bottom: 1px solid var(--border);
-    }
-    .region-row h3 { font-size: 16px; font-weight: 600; }
-    .region-badge {
-      font-size: 10px; font-family: var(--mono); font-weight: 500;
-      color: var(--cyan);
-      background: var(--cyan-dim);
-      padding: 2px 8px; border-radius: 4px;
-    }
-
-    table { width: 100%; border-collapse: collapse; }
-    thead th {
-      text-align: left; font-size: 10px; font-weight: 600;
-      color: var(--grey-dim); letter-spacing: 0.06em;
-      text-transform: uppercase; padding: 8px 12px;
-      border-bottom: 1px solid var(--border);
-    }
-    tbody tr {
-      border-bottom: 1px solid rgba(255,255,255,0.02);
-      transition: background 0.15s;
-    }
-    tbody tr:hover { background: rgba(0,180,255,0.03); }
-    td { padding: 14px 12px; font-size: 13px; }
-    .td-name { font-weight: 600; }
-    .td-model { font-family: var(--mono); font-size: 11px; color: var(--grey); }
-    .td-tag {
-      display:inline-block; font-size:9px; font-weight:600;
-      text-transform:uppercase; letter-spacing:0.04em;
-      padding:3px 8px; border-radius:4px;
-    }
-    .td-tag.open { color:var(--green); background:var(--green-dim); }
-    .td-tag.closed { color:var(--red); background:var(--red-dim); }
-    .td-tag.mixed { color:var(--purple); background:var(--purple-dim); }
-    .td-tag.open-weight { color:var(--amber); background:var(--amber-dim); }
-    .td-status { color: var(--green); font-size: 12px; }
-    .td-notes { font-size: 11px; color: var(--grey-dim); max-width: 200px; }
-
-    /* ===== FOOTER ===== */
-    .footer {
-      padding: 24px;
-      border-top: 1px solid var(--border);
-      text-align: center;
-      font-size: 11px;
-      color: var(--grey-dim);
-    }
-    .footer a { color: var(--cyan); }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      .map-container { aspect-ratio: 3/2; }
-      .map-legend { display: none; }
-      .detail-panel { width: 100%; right: -100%; }
-      .td-notes { display: none; }
-      .topbar-right { display: none; }
-      .stats-row { flex-wrap: wrap; }
-      .stat-box { min-width: calc(50% - 1px); }
-      .stat-box:first-child { border-radius: 10px 0 0 0; }
-      .stat-box:nth-child(2) { border-radius: 0 10px 0 0; }
-      .stat-box:nth-child(3) { border-radius: 0 0 0 10px; }
-      .stat-box:last-child { border-radius: 0 0 10px 0; }
-    }
+    /* LOADING */
+    .loading{display:flex;align-items:center;justify-content:center;height:60vh;font-size:14px;color:var(--grey)}
+    .loading::after{content:'';width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--cyan);border-radius:50%;margin-left:12px;animation:spin .8s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav class="topbar">
-    <div class="topbar-left">
-      <div class="topbar-logo"></div>
-      <div class="topbar-title">AI Model Registry <span>v1.0</span></div>
-    </div>
-    <div class="topbar-right">
-      <div class="topbar-stat">SCAN: <b>20 MAR 2026</b></div>
-      <div class="topbar-stat">TRACKED: <b id="nav-count">55</b></div>
-      <div class="topbar-stat">STATUS: <b style="color:var(--green)">ACTIVE</b></div>
-    </div>
-  </nav>
+<nav class="nav">
+  <div class="nav-left">
+    <div class="nav-pulse"></div>
+    <div class="nav-brand">AI Intel <span>v2</span></div>
+  </div>
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="showView('map')">Map</div>
+    <div class="nav-tab" onclick="showView('timeline')">Timeline</div>
+    <div class="nav-tab" onclick="showView('models')">Models</div>
+    <div class="nav-tab" onclick="showView('companies')">Companies</div>
+  </div>
+  <div class="nav-meta">
+    <span>MODELS: <b id="nModels">-</b></span>
+    <span>COMPANIES: <b id="nCompanies">-</b></span>
+    <span>EVENTS: <b id="nEvents">-</b></span>
+  </div>
+</nav>
 
-  <div class="app">
-
-    <!-- HERO -->
-    <div class="hero-banner">
-      <h1>Who is building <span class="glow">AI?</span></h1>
-      <p>Every company in the world that trains original foundation models. Not fine-tuners. Not API wrappers. The real thing. Click any dot to explore.</p>
-    </div>
-
-    <!-- STATS -->
-    <div class="stats-row">
-      <div class="stat-box"><div class="val">55</div><div class="lbl">Companies</div></div>
-      <div class="stat-box"><div class="val">9</div><div class="lbl">Regions</div></div>
-      <div class="stat-box"><div class="val">19</div><div class="lbl">United States</div></div>
-      <div class="stat-box"><div class="val">13</div><div class="lbl">China</div></div>
-    </div>
-
-    <!-- FILTERS -->
-    <div class="filter-bar" style="margin-top:24px;">
-      <button class="filter-pill active" onclick="setMapFilter('all',this)">All Companies</button>
-      <button class="filter-pill" onclick="setMapFilter('open',this)">Open Source</button>
-      <button class="filter-pill" onclick="setMapFilter('open-weight',this)">Open Weight</button>
-      <button class="filter-pill" onclick="setMapFilter('closed',this)">Closed</button>
-      <button class="filter-pill" onclick="setMapFilter('mixed',this)">Mixed</button>
-    </div>
-
-    <!-- MAP -->
-    <div class="map-section">
-      <div class="map-container" id="mapContainer">
-        <svg class="map-svg" id="mapSvg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet"></svg>
-        <div class="map-tooltip" id="tooltip"></div>
-        <div class="map-coords" id="coords">0.00, 0.00</div>
-        <div class="map-legend">
-          <div class="legend-title">Access Type</div>
-          <div class="legend-item"><span class="legend-dot" style="background:var(--green)"></span> Open Source</div>
-          <div class="legend-item"><span class="legend-dot" style="background:var(--amber)"></span> Open Weight</div>
-          <div class="legend-item"><span class="legend-dot" style="background:var(--red)"></span> Closed</div>
-          <div class="legend-item"><span class="legend-dot" style="background:var(--purple)"></span> Mixed</div>
-          <div class="legend-title" style="margin-top:8px">Dot Size = Companies</div>
-        </div>
+<!-- MAP VIEW -->
+<div class="view active" id="v-map">
+  <div class="hero">
+    <h1>Who is building <span class="gl">AI?</span></h1>
+    <p>109 models. 78 companies. 31 pivotal events. The complete picture, updated daily.</p>
+  </div>
+  <div class="stats" id="statsRow"></div>
+  <div class="toolbar">
+    <div class="search-wrap"><input type="text" id="mapSearch" placeholder="Search companies, models, regions..." oninput="renderMap()"></div>
+    <button class="pill on" onclick="setMapFilter('all',this)">All</button>
+    <button class="pill" onclick="setMapFilter('open',this)">Open</button>
+    <button class="pill" onclick="setMapFilter('open-weight',this)">Open Weight</button>
+    <button class="pill" onclick="setMapFilter('closed',this)">Closed</button>
+    <button class="pill" onclick="setMapFilter('mixed',this)">Mixed</button>
+  </div>
+  <div class="map-wrap">
+    <div class="map-box" id="mapBox">
+      <svg class="map-svg" id="mapSvg" viewBox="0 0 1000 500"></svg>
+      <div class="map-tip" id="mapTip"></div>
+      <div class="map-legend">
+        <div class="leg-i"><span class="leg-d" style="background:var(--green)"></span>Open Source</div>
+        <div class="leg-i"><span class="leg-d" style="background:var(--amber)"></span>Open Weight</div>
+        <div class="leg-i"><span class="leg-d" style="background:var(--red)"></span>Closed</div>
+        <div class="leg-i"><span class="leg-d" style="background:var(--purple)"></span>Mixed</div>
       </div>
-    </div>
-
-    <!-- DETAIL PANEL -->
-    <div class="detail-panel" id="detailPanel">
-      <button class="detail-close" onclick="closePanel()">&times;</button>
-      <div id="detailContent"></div>
-    </div>
-
-    <!-- TABLE SECTION -->
-    <div class="table-section">
-      <div class="table-header">
-        <h2>Full Registry</h2>
-        <p>Every company, every model, every region. Search and filter below.</p>
-      </div>
-      <div class="search-bar">
-        <div class="search-icon"></div>
-        <input type="text" id="search" placeholder="Search companies, models, regions..." oninput="filterTable()">
-      </div>
-      <div id="tableData"></div>
-    </div>
-
-    <div class="footer">
-      Project Zero &middot; Autoresearch v1.0 &middot; Powered by Firecrawl + Claude &middot; <a href="https://github.com/ADR31223/ai-model-registry" target="_blank">GitHub</a>
     </div>
   </div>
+</div>
+
+<!-- TIMELINE VIEW -->
+<div class="view" id="v-timeline">
+  <div class="hero">
+    <h1>The <span class="gl">History</span></h1>
+    <p>Every event that shaped AI, scored by actual industry impact. Green = changed everything. Grey = noise.</p>
+  </div>
+  <div class="toolbar">
+    <div class="search-wrap"><input type="text" id="tlSearch" placeholder="Search events..." oninput="renderTimeline()"></div>
+    <button class="pill on" onclick="setTlFilter('all',this)">All</button>
+    <button class="pill" onclick="setTlFilter('signal',this)">Signal Only (7+)</button>
+    <button class="pill" onclick="setTlFilter('paradigm',this)">Paradigm Shifts (9+)</button>
+  </div>
+  <div class="tl-container" id="tlContainer"><div class="loading">Loading timeline</div></div>
+</div>
+
+<!-- MODELS VIEW -->
+<div class="view" id="v-models">
+  <div class="hero">
+    <h1>Model <span class="gl">Genealogy</span></h1>
+    <p>Every major model family, every version, and how they connect. The family tree of AI.</p>
+  </div>
+  <div class="toolbar">
+    <div class="search-wrap"><input type="text" id="mdSearch" placeholder="Search models..." oninput="renderModels()"></div>
+    <button class="pill on" onclick="setMdFilter('all',this)">All Families</button>
+    <button class="pill" onclick="setMdFilter('gpt',this)">GPT</button>
+    <button class="pill" onclick="setMdFilter('claude',this)">Claude</button>
+    <button class="pill" onclick="setMdFilter('gemini',this)">Gemini</button>
+    <button class="pill" onclick="setMdFilter('llama',this)">Llama</button>
+    <button class="pill" onclick="setMdFilter('deepseek',this)">DeepSeek</button>
+    <button class="pill" onclick="setMdFilter('mistral',this)">Mistral</button>
+    <button class="pill" onclick="setMdFilter('diffusion',this)">Diffusion</button>
+  </div>
+  <div class="models-container" id="mdContainer"><div class="loading">Loading models</div></div>
+</div>
+
+<!-- COMPANIES VIEW -->
+<div class="view" id="v-companies">
+  <div class="hero">
+    <h1>The <span class="gl">Players</span></h1>
+    <p>78 companies building AI. Trainers, builders, and infrastructure providers.</p>
+  </div>
+  <div class="toolbar">
+    <div class="search-wrap"><input type="text" id="coSearch" placeholder="Search companies..." oninput="renderCompanies()"></div>
+    <button class="pill on" onclick="setCoFilter('all',this)">All</button>
+    <button class="pill" onclick="setCoFilter('trainer',this)">Trainers</button>
+    <button class="pill" onclick="setCoFilter('builder',this)">Builders</button>
+    <button class="pill" onclick="setCoFilter('infrastructure',this)">Infrastructure</button>
+  </div>
+  <div class="co-grid" id="coGrid"><div class="loading">Loading companies</div></div>
+</div>
+
+<div class="footer">AI Intel v2 &middot; Project Zero &middot; <a href="https://github.com/ADR31223/ai-model-registry" target="_blank">GitHub</a></div>
 
 <script>
-/* ===== COMPANY DATA WITH COORDINATES ===== */
-const COMPANIES = [
-  // San Francisco cluster
-  { company:"OpenAI", region:"United States", models:"GPT, o-series, Whisper", access:"mixed", status:"active", notes:"$840B val", lat:37.78, lon:-122.42, city:"San Francisco" },
-  { company:"Anthropic", region:"United States", models:"Claude series", access:"closed", status:"active", notes:"$380B val", lat:37.78, lon:-122.40, city:"San Francisco" },
-  { company:"xAI", region:"United States", models:"Grok series", access:"closed", status:"active", notes:"Merged w/ SpaceX", lat:37.44, lon:-122.16, city:"Palo Alto" },
-  { company:"Together AI", region:"United States", models:"RedPajama, custom", access:"mixed", status:"active", notes:"$3.3B val", lat:37.78, lon:-122.44, city:"San Francisco" },
-  { company:"Databricks", region:"United States", models:"DBRX", access:"open-weight", status:"active", notes:"Via Mosaic ML", lat:37.79, lon:-122.39, city:"San Francisco" },
-  { company:"Inflection AI", region:"United States", models:"Pi, Inflection 2.5", access:"closed", status:"active", notes:"Reformed post-MS", lat:37.45, lon:-122.18, city:"Palo Alto" },
-  // Mountain View / Menlo Park
-  { company:"Google DeepMind", region:"United States", models:"Gemini, PaLM", access:"closed", status:"active", notes:"Also London HQ", lat:37.42, lon:-122.08, city:"Mountain View" },
-  { company:"Meta (FAIR)", region:"United States", models:"Llama, SAM", access:"open-weight", status:"active", notes:"Llama 4 latest", lat:37.45, lon:-122.15, city:"Menlo Park" },
-  // Cupertino
-  { company:"Apple", region:"United States", models:"Apple Intelligence", access:"closed", status:"active", notes:"On-device focused", lat:37.33, lon:-122.01, city:"Cupertino" },
-  // Santa Clara
-  { company:"NVIDIA", region:"United States", models:"Nemotron", access:"open-weight", status:"active", notes:"Wafer chip leader", lat:37.38, lon:-121.96, city:"Santa Clara" },
-  { company:"ServiceNow", region:"United States", models:"Apriel, Now LLM", access:"closed", status:"active", notes:"Enterprise AI", lat:37.39, lon:-121.97, city:"Santa Clara" },
-  { company:"Cerebras", region:"United States", models:"Custom models", access:"closed", status:"active", notes:"$8.1B val", lat:37.37, lon:-121.92, city:"Sunnyvale" },
-  { company:"SambaNova", region:"United States", models:"Custom models", access:"closed", status:"active", notes:"Talks w/ Intel", lat:37.45, lon:-122.12, city:"Palo Alto" },
-  // Seattle
-  { company:"Amazon (AWS)", region:"United States", models:"Titan, Nova", access:"closed", status:"active", notes:"Bedrock-native", lat:47.61, lon:-122.33, city:"Seattle" },
-  { company:"Microsoft Research", region:"United States", models:"Phi series", access:"open-weight", status:"active", notes:"Separate from OpenAI", lat:47.64, lon:-122.13, city:"Redmond" },
-  { company:"Allen AI (AI2)", region:"United States", models:"OLMo", access:"open", status:"active", notes:"Fully open", lat:47.62, lon:-122.34, city:"Seattle" },
-  // New York
-  { company:"Runway", region:"United States", models:"Gen-3, Gen-4", access:"closed", status:"active", notes:"Video gen, $5.3B", lat:40.74, lon:-73.99, city:"New York" },
-  { company:"Twelve Labs", region:"United States", models:"Video understanding", access:"closed", status:"active", notes:"Multimodal", lat:40.75, lon:-73.98, city:"New York" },
-  // Distributed
-  { company:"EleutherAI", region:"United States", models:"GPT-NeoX, Pythia", access:"open", status:"active", notes:"Community-led", lat:39.83, lon:-98.58, city:"Distributed (US)" },
-  // Canada
-  { company:"Cohere", region:"Canada", models:"Command R, Aya", access:"mixed", status:"active", notes:"$7B val", lat:43.65, lon:-79.38, city:"Toronto" },
-  // France
-  { company:"Mistral AI", region:"Europe", models:"Mistral, Mixtral, Codestral", access:"mixed", status:"active", notes:"\u20ac11.7B val", lat:48.86, lon:2.35, city:"Paris" },
-  // Germany
-  { company:"Aleph Alpha", region:"Europe", models:"Luminous, PhariaAI", access:"mixed", status:"active", notes:"\u20ac500M+", lat:49.40, lon:8.69, city:"Heidelberg" },
-  { company:"Black Forest Labs", region:"Europe", models:"FLUX", access:"open-weight", status:"active", notes:"Image gen, $3.25B", lat:47.99, lon:7.85, city:"Freiburg" },
-  { company:"DeepL", region:"Europe", models:"Neural translation", access:"closed", status:"active", notes:"IPO 2026", lat:50.94, lon:6.96, city:"Cologne" },
-  { company:"Helsing", region:"Europe", models:"Defense AI", access:"closed", status:"active", notes:"$12B val", lat:48.14, lon:11.58, city:"Munich" },
-  // UK
-  { company:"Stability AI", region:"Europe", models:"Stable Diffusion, StableLM", access:"open", status:"active", notes:"London", lat:51.51, lon:-0.13, city:"London" },
-  { company:"Wayve", region:"Europe", models:"AV foundation models", access:"closed", status:"active", notes:"$8.6B val", lat:51.52, lon:-0.10, city:"London" },
-  { company:"ElevenLabs", region:"Europe", models:"Voice synthesis", access:"closed", status:"active", notes:"$11B val", lat:51.50, lon:-0.08, city:"London" },
-  { company:"Synthesia", region:"Europe", models:"Avatar/video gen", access:"closed", status:"active", notes:"London", lat:51.53, lon:-0.12, city:"London" },
-  // Finland
-  { company:"Silo AI", region:"Europe", models:"Poro, Viking", access:"open", status:"active", notes:"Acquired by AMD", lat:60.17, lon:24.94, city:"Helsinki" },
-  // Israel
-  { company:"AI21 Labs", region:"Israel", models:"Jurassic, Jamba", access:"mixed", status:"active", notes:"$1.4B+", lat:32.09, lon:34.78, city:"Tel Aviv" },
-  // China - Beijing
-  { company:"Baidu", region:"China", models:"ERNIE series", access:"mixed", status:"active", notes:"Beijing", lat:39.91, lon:116.40, city:"Beijing" },
-  { company:"ByteDance", region:"China", models:"Doubao, Seed", access:"closed", status:"active", notes:"Beijing", lat:39.98, lon:116.31, city:"Beijing" },
-  { company:"Moonshot AI", region:"China", models:"Kimi series", access:"closed", status:"active", notes:"$4.3B val", lat:39.95, lon:116.35, city:"Beijing" },
-  { company:"Zhipu AI", region:"China", models:"GLM series", access:"mixed", status:"active", notes:"Tsinghua spinoff", lat:39.99, lon:116.33, city:"Beijing" },
-  // China - Hangzhou
-  { company:"Alibaba (Qwen)", region:"China", models:"Qwen series", access:"mixed", status:"active", notes:"$50.6B AI invest", lat:30.27, lon:120.15, city:"Hangzhou" },
-  { company:"DeepSeek", region:"China", models:"DeepSeek-V3, R1", access:"open", status:"active", notes:"MIT License", lat:30.29, lon:120.17, city:"Hangzhou" },
-  // China - Shenzhen
-  { company:"Tencent", region:"China", models:"Hunyuan", access:"closed", status:"active", notes:"Shenzhen", lat:22.54, lon:114.06, city:"Shenzhen" },
-  { company:"Huawei", region:"China", models:"Pangu", access:"closed", status:"active", notes:"Ascend chips", lat:22.57, lon:114.00, city:"Shenzhen" },
-  // China - Hong Kong
-  { company:"SenseTime", region:"China", models:"SenseNova", access:"closed", status:"active", notes:"HK/Beijing", lat:22.32, lon:114.17, city:"Hong Kong" },
-  { company:"MiniMax", region:"China", models:"MiniMax-Text", access:"closed", status:"active", notes:"HK IPO filing", lat:22.28, lon:114.16, city:"Hong Kong" },
-  // China - other
-  { company:"Baichuan", region:"China", models:"Baichuan series", access:"mixed", status:"active", notes:"$693M Series A", lat:39.92, lon:116.46, city:"Beijing" },
-  { company:"StepFun", region:"China", models:"Step series", access:"open-weight", status:"active", notes:"Multimodal VLM", lat:31.23, lon:121.47, city:"Shanghai" },
-  { company:"01.AI (Yi)", region:"China", models:"Yi series", access:"open-weight", status:"active", notes:"Kai-Fu Lee", lat:39.90, lon:116.41, city:"Beijing" },
-  // Japan
-  { company:"Preferred Networks", region:"Japan", models:"PLaMo", access:"open-weight", status:"active", notes:"Japan's largest", lat:35.68, lon:139.76, city:"Tokyo" },
-  { company:"Sakana AI", region:"Japan", models:"Evolutionary merging", access:"mixed", status:"active", notes:"Ex-Google Brain", lat:35.66, lon:139.70, city:"Tokyo" },
-  // South Korea
-  { company:"Naver", region:"South Korea", models:"HyperCLOVA X", access:"closed", status:"active", notes:"Korea's largest", lat:37.36, lon:127.11, city:"Seongnam" },
-  { company:"Samsung Research", region:"South Korea", models:"Gauss", access:"closed", status:"active", notes:"On-device", lat:37.38, lon:127.12, city:"Suwon" },
-  { company:"Kakao Brain", region:"South Korea", models:"KoGPT", access:"open", status:"active", notes:"Korean language", lat:37.39, lon:127.10, city:"Seongnam" },
-  { company:"Upstage", region:"South Korea", models:"SOLAR", access:"open-weight", status:"active", notes:"Seoul", lat:37.57, lon:126.98, city:"Seoul" },
-  // UAE
-  { company:"TII", region:"UAE", models:"Falcon", access:"open", status:"active", notes:"Gov-backed", lat:24.45, lon:54.65, city:"Abu Dhabi" },
-  { company:"G42", region:"UAE", models:"Jais (Arabic)", access:"open", status:"active", notes:"MS partnership", lat:24.47, lon:54.37, city:"Abu Dhabi" },
-  // India
-  { company:"Sarvam AI", region:"India", models:"OpenHathi, Sarvam-1", access:"open", status:"active", notes:"Indian langs", lat:12.97, lon:77.59, city:"Bangalore" },
-  { company:"Krutrim (Ola)", region:"India", models:"Krutrim", access:"closed", status:"active", notes:"Multilingual", lat:12.93, lon:77.62, city:"Bangalore" },
-  // Russia
-  { company:"Yandex", region:"Russia", models:"YandexGPT", access:"closed", status:"active", notes:"Moscow", lat:55.75, lon:37.62, city:"Moscow" },
-  { company:"Sber", region:"Russia", models:"GigaChat, mGPT", access:"mixed", status:"active", notes:"Moscow", lat:55.76, lon:37.60, city:"Moscow" },
-];
+/* ===== GLOBALS ===== */
+let D = { models:[], companies:[], timeline:[], lineage:[] };
+let mapFilter='all', tlFilter='all', mdFilter='all', coFilter='all';
 
-/* ===== SIMPLIFIED CONTINENT OUTLINES (lon,lat pairs) ===== */
-const CONTINENTS = {
-  northAmerica: [[-130,50],[-125,60],[-130,70],[-160,72],[-168,66],[-168,60],[-160,56],[-152,58],[-138,56],[-136,58],[-132,54],[-124,48],[-122,37],[-117,32],[-110,30],[-105,25],[-98,20],[-96,18],[-92,16],[-88,16],[-84,10],[-80,8],[-78,8],[-77,18],[-80,25],[-82,28],[-84,30],[-90,30],[-95,30],[-98,26],[-98,28],[-95,35],[-90,35],[-85,35],[-80,32],[-76,35],[-74,40],[-70,42],[-66,44],[-66,47],[-68,48],[-70,46],[-64,44],[-60,47],[-56,50],[-55,52],[-58,55],[-65,62],[-72,68],[-80,64],[-92,68],[-95,72],[-110,72],[-120,70],[-130,50]],
-  southAmerica: [[-80,8],[-77,6],[-72,12],[-72,8],[-68,6],[-60,8],[-55,6],[-50,2],[-48,-2],[-50,-10],[-38,-4],[-35,-8],[-35,-12],[-40,-15],[-40,-22],[-42,-23],[-44,-23],[-48,-28],[-50,-30],[-52,-33],[-54,-34],[-58,-38],[-64,-40],[-65,-42],[-66,-46],[-68,-48],[-70,-52],[-74,-52],[-74,-46],[-76,-44],[-74,-40],[-72,-36],[-72,-30],[-70,-20],[-75,-15],[-76,-10],[-76,-5],[-80,0],[-80,8]],
-  europe: [[-10,36],[-8,44],[-4,44],[0,44],[2,48],[6,48],[8,54],[6,56],[8,58],[12,56],[14,54],[18,56],[22,55],[24,56],[28,56],[30,60],[28,64],[24,66],[16,68],[14,70],[18,70],[24,72],[32,70],[40,68],[42,64],[44,60],[40,56],[30,46],[28,42],[26,38],[24,36],[22,38],[20,40],[16,46],[14,46],[12,42],[14,38],[10,44],[6,44],[4,48],[2,50],[-2,48],[-4,48],[-8,42],[-10,36]],
-  africa: [[-16,16],[-17,22],[-14,28],[-8,32],[-4,36],[0,36],[10,36],[12,34],[14,30],[24,32],[28,32],[32,30],[34,28],[40,12],[42,10],[50,12],[52,2],[46,-2],[42,-12],[40,-16],[36,-20],[34,-24],[32,-28],[28,-32],[26,-34],[20,-35],[18,-34],[16,-30],[12,-18],[12,-6],[10,0],[8,4],[4,6],[2,6],[-4,4],[-8,4],[-12,10],[-16,12],[-16,16]],
-  asia: [[40,68],[44,60],[40,56],[44,52],[50,46],[52,42],[54,38],[56,26],[60,24],[66,24],[70,20],[76,14],[80,8],[80,16],[88,22],[92,20],[96,16],[100,14],[104,10],[106,16],[108,20],[116,22],[120,24],[122,30],[124,34],[128,36],[130,34],[132,34],[136,36],[140,36],[142,44],[144,44],[142,48],[138,50],[136,54],[142,60],[150,60],[162,66],[170,64],[180,66],[180,72],[170,72],[160,72],[130,72],[100,72],[80,72],[68,72],[56,68],[40,68]],
-  oceania: [[114,-8],[120,-10],[128,-14],[132,-12],[136,-14],[140,-12],[142,-10],[142,-14],[146,-16],[148,-20],[152,-24],[154,-28],[152,-34],[148,-38],[142,-38],[136,-36],[132,-34],[124,-34],[116,-34],[114,-26],[114,-22],[118,-20],[122,-18],[126,-16],[120,-14],[114,-8]],
-};
+/* ===== LOAD DATA ===== */
+async function init() {
+  const [m,c,t,l] = await Promise.all([
+    fetch('data/models.json').then(r=>r.json()),
+    fetch('data/companies.json').then(r=>r.json()),
+    fetch('data/timeline.json').then(r=>r.json()),
+    fetch('data/lineage.json').then(r=>r.json()),
+  ]);
+  D.models = m.models || [];
+  D.companies = c.companies || [];
+  D.timeline = t.events || [];
+  D.lineage = l.edges || [];
 
-/* ===== PROJECTION ===== */
-function lonLatToXY(lon, lat) {
-  const x = (lon + 180) / 360 * 1000;
-  const y = (90 - lat) / 180 * 500;
-  return [x, y];
-}
+  document.getElementById('nModels').textContent = D.models.length;
+  document.getElementById('nCompanies').textContent = D.companies.length;
+  document.getElementById('nEvents').textContent = D.timeline.length;
 
-/* ===== ACCESS COLORS ===== */
-const ACCESS_COLORS = {
-  open: '#00e676',
-  'open-weight': '#ffab00',
-  closed: '#ff5252',
-  mixed: '#b388ff',
-};
-
-let activeFilter = 'all';
-let activeCity = null;
-
-/* ===== BUILD MAP ===== */
-function buildMap() {
-  const svg = document.getElementById('mapSvg');
-  let content = '';
-
-  // Grid lines
-  for (let lon = -180; lon <= 180; lon += 30) {
-    const [x] = lonLatToXY(lon, 0);
-    content += `<line x1="${x}" y1="0" x2="${x}" y2="500" class="grid-line"/>`;
-  }
-  for (let lat = -60; lat <= 80; lat += 30) {
-    const [,y] = lonLatToXY(0, lat);
-    const cls = lat === 0 ? 'equator' : 'grid-line';
-    content += `<line x1="0" y1="${y}" x2="1000" y2="${y}" class="${cls}"/>`;
-  }
-
-  // Continents
-  Object.values(CONTINENTS).forEach(pts => {
-    const d = pts.map((p,i) => {
-      const [x,y] = lonLatToXY(p[0], p[1]);
-      return `${i===0?'M':'L'}${x.toFixed(1)},${y.toFixed(1)}`;
-    }).join(' ') + ' Z';
-    content += `<path d="${d}" class="continent"/>`;
-  });
-
-  // Group companies by city
-  const cities = {};
-  COMPANIES.forEach(c => {
-    const key = `${c.lat.toFixed(1)}_${c.lon.toFixed(1)}_${c.city}`;
-    if (!cities[key]) cities[key] = { lat:c.lat, lon:c.lon, city:c.city, companies:[] };
-    cities[key].companies.push(c);
-  });
-
-  // Company dots
-  Object.entries(cities).forEach(([key, city]) => {
-    const [x, y] = lonLatToXY(city.lon, city.lat);
-    const filtered = city.companies.filter(c => activeFilter === 'all' || c.access === activeFilter);
-    if (filtered.length === 0) return;
-
-    // Dominant access color
-    const accessCounts = {};
-    filtered.forEach(c => { accessCounts[c.access] = (accessCounts[c.access]||0)+1; });
-    const dominant = Object.entries(accessCounts).sort((a,b)=>b[1]-a[1])[0][0];
-    const color = ACCESS_COLORS[dominant];
-    const r = Math.min(3 + filtered.length * 1.5, 10);
-
-    // Glow
-    content += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r+8}" fill="${color}" opacity="0.08" class="dot-glow"/>`;
-    // Dot
-    content += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${color}" opacity="0.85" class="company-dot" data-key="${key}" onclick="openCity('${key}')" onmouseenter="showTooltip(event,'${key}')" onmouseleave="hideTooltip()"/>`;
-  });
-
-  svg.innerHTML = content;
-
-  // Store cities globally
-  window._cities = cities;
-}
-
-/* ===== TOOLTIP ===== */
-function showTooltip(e, key) {
-  const city = window._cities[key];
-  if (!city) return;
-
-  const filtered = city.companies.filter(c => activeFilter === 'all' || c.access === activeFilter);
-  const tip = document.getElementById('tooltip');
-
-  let html = `<div class="tooltip-city">${city.city} \u2014 ${filtered.length} ${filtered.length===1?'company':'companies'}</div>`;
-  filtered.forEach(c => {
-    html += `<div class="tooltip-company">
-      <span class="name">${c.company}</span>
-      <span class="tooltip-tag ${c.access}">${c.access.replace('-',' ')}</span>
-      <span class="models">${c.models}</span>
-    </div>`;
-  });
-
-  tip.innerHTML = html;
-
-  const container = document.getElementById('mapContainer');
-  const rect = container.getBoundingClientRect();
-  const mx = e.clientX - rect.left;
-  const my = e.clientY - rect.top;
-
-  tip.style.left = (mx + 16) + 'px';
-  tip.style.top = (my - 16) + 'px';
-
-  // Keep tooltip in bounds
-  if (mx > rect.width * 0.65) tip.style.left = (mx - 280) + 'px';
-  if (my > rect.height * 0.7) tip.style.top = (my - tip.offsetHeight - 16) + 'px';
-
-  tip.classList.add('show');
-}
-
-function hideTooltip() {
-  document.getElementById('tooltip').classList.remove('show');
-}
-
-/* ===== DETAIL PANEL ===== */
-function openCity(key) {
-  const city = window._cities[key];
-  if (!city) return;
-
-  const filtered = city.companies.filter(c => activeFilter === 'all' || c.access === activeFilter);
-  const panel = document.getElementById('detailPanel');
-  const content = document.getElementById('detailContent');
-
-  let html = `
-    <div class="detail-region">${filtered[0].region}</div>
-    <div class="detail-city">${city.city}</div>
-    <div class="detail-count">${filtered.length} ${filtered.length===1?'company':'companies'} training original models</div>
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat"><div class="v">${D.models.length}</div><div class="l">Models</div></div>
+    <div class="stat"><div class="v">${D.companies.length}</div><div class="l">Companies</div></div>
+    <div class="stat"><div class="v">${D.timeline.length}</div><div class="l">Events</div></div>
+    <div class="stat"><div class="v">${D.lineage.length}</div><div class="l">Connections</div></div>
   `;
 
-  filtered.forEach(c => {
-    html += `<div class="detail-company">
-      <div class="detail-company-name">${c.company}</div>
-      <div class="detail-company-models">${c.models}</div>
-      <div class="detail-company-notes">${c.notes}</div>
-      <span class="detail-company-tag ${c.access}">${c.access.replace('-',' ')}</span>
+  renderMap();
+  renderTimeline();
+  renderModels();
+  renderCompanies();
+}
+
+/* ===== VIEW SWITCHING ===== */
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('v-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+/* ===== MAP ===== */
+const CONTINENTS = {
+  na:[[-130,50],[-125,60],[-130,70],[-160,72],[-168,66],[-168,60],[-160,56],[-152,58],[-138,56],[-136,58],[-132,54],[-124,48],[-122,37],[-117,32],[-110,30],[-105,25],[-98,20],[-96,18],[-92,16],[-88,16],[-84,10],[-80,8],[-78,8],[-77,18],[-80,25],[-82,28],[-84,30],[-90,30],[-95,30],[-98,26],[-98,28],[-95,35],[-90,35],[-85,35],[-80,32],[-76,35],[-74,40],[-70,42],[-66,44],[-66,47],[-68,48],[-70,46],[-64,44],[-60,47],[-56,50],[-55,52],[-58,55],[-65,62],[-72,68],[-80,64],[-92,68],[-95,72],[-110,72],[-120,70],[-130,50]],
+  sa:[[-80,8],[-77,6],[-72,12],[-72,8],[-68,6],[-60,8],[-55,6],[-50,2],[-48,-2],[-50,-10],[-38,-4],[-35,-8],[-35,-12],[-40,-15],[-40,-22],[-42,-23],[-44,-23],[-48,-28],[-50,-30],[-52,-33],[-54,-34],[-58,-38],[-64,-40],[-65,-42],[-66,-46],[-68,-48],[-70,-52],[-74,-52],[-74,-46],[-76,-44],[-74,-40],[-72,-36],[-72,-30],[-70,-20],[-75,-15],[-76,-10],[-76,-5],[-80,0],[-80,8]],
+  eu:[[-10,36],[-8,44],[-4,44],[0,44],[2,48],[6,48],[8,54],[6,56],[8,58],[12,56],[14,54],[18,56],[22,55],[24,56],[28,56],[30,60],[28,64],[24,66],[16,68],[14,70],[18,70],[24,72],[32,70],[40,68],[42,64],[44,60],[40,56],[30,46],[28,42],[26,38],[24,36],[22,38],[20,40],[16,46],[14,46],[12,42],[14,38],[10,44],[6,44],[4,48],[2,50],[-2,48],[-4,48],[-8,42],[-10,36]],
+  af:[[-16,16],[-17,22],[-14,28],[-8,32],[-4,36],[0,36],[10,36],[12,34],[14,30],[24,32],[28,32],[32,30],[34,28],[40,12],[42,10],[50,12],[52,2],[46,-2],[42,-12],[40,-16],[36,-20],[34,-24],[32,-28],[28,-32],[26,-34],[20,-35],[18,-34],[16,-30],[12,-18],[12,-6],[10,0],[8,4],[4,6],[2,6],[-4,4],[-8,4],[-12,10],[-16,12],[-16,16]],
+  as:[[40,68],[44,60],[40,56],[44,52],[50,46],[52,42],[54,38],[56,26],[60,24],[66,24],[70,20],[76,14],[80,8],[80,16],[88,22],[92,20],[96,16],[100,14],[104,10],[106,16],[108,20],[116,22],[120,24],[122,30],[124,34],[128,36],[130,34],[132,34],[136,36],[140,36],[142,44],[144,44],[142,48],[138,50],[136,54],[142,60],[150,60],[162,66],[170,64],[180,66],[180,72],[170,72],[160,72],[130,72],[100,72],[80,72],[68,72],[56,68],[40,68]],
+  oc:[[114,-8],[120,-10],[128,-14],[132,-12],[136,-14],[140,-12],[142,-10],[142,-14],[146,-16],[148,-20],[152,-24],[154,-28],[152,-34],[148,-38],[142,-38],[136,-36],[132,-34],[124,-34],[116,-34],[114,-26],[114,-22],[118,-20],[122,-18],[126,-16],[120,-14],[114,-8]],
+};
+const HQ={openai:[37.78,-122.42],anthropic:[37.78,-122.40],'google-deepmind':[51.51,-0.13],meta:[37.45,-122.15],xai:[37.44,-122.16],microsoft:[47.64,-122.13],apple:[37.33,-122.01],'amazon-aws':[47.61,-122.33],nvidia:[37.38,-121.96],databricks:[37.79,-122.39],'together-ai':[37.78,-122.44],runway:[40.74,-73.99],servicenow:[37.39,-121.97],cerebras:[37.37,-121.92],sambanova:[37.45,-122.12],'twelve-labs':[40.75,-73.98],eleutherai:[39.83,-98.58],'ai2':[47.62,-122.34],inflection:[37.45,-122.18],cohere:[43.65,-79.38],mistral:[48.86,2.35],'aleph-alpha':[49.40,8.69],'black-forest-labs':[47.99,7.85],deepl:[50.94,6.96],helsing:[48.14,11.58],'stability-ai':[51.51,-0.13],wayve:[51.52,-0.10],elevenlabs:[51.50,-0.08],synthesia:[51.53,-0.12],'silo-ai':[60.17,24.94],ai21:[32.09,34.78],alibaba:[30.27,120.15],baidu:[39.91,116.40],tencent:[22.54,114.06],bytedance:[39.98,116.31],huawei:[22.57,114.00],deepseek:[30.29,120.17],moonshot:[39.95,116.35],zhipu:[39.99,116.33],sensetime:[22.32,114.17],minimax:[22.28,114.16],baichuan:[39.92,116.46],stepfun:[31.23,121.47],'01ai':[39.90,116.41],'preferred-networks':[35.68,139.76],sakana:[35.66,139.70],naver:[37.36,127.11],samsung:[37.38,127.12],'kakao-brain':[37.39,127.10],upstage:[37.57,126.98],tii:[24.45,54.65],g42:[24.47,54.37],sarvam:[12.97,77.59],krutrim:[12.93,77.62],yandex:[55.75,37.62],sber:[55.76,37.60],cursor:[37.78,-122.41],perplexity:[37.77,-122.42],langchain:[37.76,-122.43],replicate:[37.77,-122.41]};
+const ACOL={open:'#00e676','open-weight':'#ffab00',closed:'#ff5252',mixed:'#b388ff'};
+
+function ll2xy(lon,lat){return[(lon+180)/360*1000,(90-lat)/180*500]}
+
+function renderMap(){
+  const q=(document.getElementById('mapSearch')?.value||'').toLowerCase();
+  const svg=document.getElementById('mapSvg');
+  let s='';
+  // Grid
+  for(let lon=-180;lon<=180;lon+=30){const[x]=ll2xy(lon,0);s+=`<line x1="${x}" y1="0" x2="${x}" y2="500" class="grid-line"/>`}
+  for(let lat=-60;lat<=80;lat+=30){const[,y]=ll2xy(0,lat);s+=`<line x1="0" y1="${y}" x2="1000" y2="${y}" class="grid-line"/>`}
+  // Continents
+  Object.values(CONTINENTS).forEach(pts=>{
+    const d=pts.map((p,i)=>{const[x,y]=ll2xy(p[0],p[1]);return `${i===0?'M':'L'}${x.toFixed(0)},${y.toFixed(0)}`}).join(' ')+' Z';
+    s+=`<path d="${d}" class="continent"/>`;
+  });
+  // Group companies by location
+  const locs={};
+  D.companies.forEach(c=>{
+    const coords=HQ[c.id];
+    if(!coords)return;
+    const access=c.model_families?.length?'mixed':'closed'; // simplify
+    // Determine real access from models
+    let acc='closed';
+    const cModels=D.models.filter(m=>m.company===c.id);
+    if(cModels.length){
+      const accs=new Set(cModels.map(m=>m.access));
+      if(accs.size>1)acc='mixed';
+      else acc=[...accs][0]||'closed';
+    }
+    if(mapFilter!=='all'&&acc!==mapFilter)return;
+    if(q&&!c.name.toLowerCase().includes(q)&&!(c.model_families||[]).join(' ').toLowerCase().includes(q)&&!(c.hq?.city||'').toLowerCase().includes(q))return;
+    const key=`${coords[0].toFixed(1)}_${coords[1].toFixed(1)}`;
+    if(!locs[key])locs[key]={lat:coords[0],lon:coords[1],city:c.hq?.city||'',companies:[]};
+    locs[key].companies.push({...c,_access:acc});
+  });
+  Object.entries(locs).forEach(([key,loc])=>{
+    const[x,y]=ll2xy(loc.lon,loc.lat);
+    const acs={};loc.companies.forEach(c=>{acs[c._access]=(acs[c._access]||0)+1});
+    const dom=Object.entries(acs).sort((a,b)=>b[1]-a[1])[0]?.[0]||'closed';
+    const col=ACOL[dom]||ACOL.closed;
+    const r=Math.min(3+loc.companies.length*1.5,10);
+    s+=`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${r+8}" fill="${col}" opacity=".06" class="dot-glow"/>`;
+    s+=`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${r}" fill="${col}" opacity=".85" class="company-dot" data-key="${key}" onmouseenter="showTip(event,'${key}')" onmouseleave="hideTip()" onclick="showTip(event,'${key}')"/>`;
+  });
+  svg.innerHTML=s;
+  window._locs=locs;
+}
+
+function showTip(e,key){
+  const loc=window._locs[key];if(!loc)return;
+  const tip=document.getElementById('mapTip');
+  let h=`<div class="tip-city">${loc.city} \u2014 ${loc.companies.length} ${loc.companies.length===1?'company':'companies'}</div>`;
+  loc.companies.forEach(c=>{
+    h+=`<div class="tip-co"><span class="n">${c.name}</span><span class="tag tag-${c._access}">${c._access.replace('-',' ')}</span><span class="m">${(c.model_families||[]).join(', ')}</span></div>`;
+  });
+  tip.innerHTML=h;
+  const box=document.getElementById('mapBox').getBoundingClientRect();
+  const mx=e.clientX-box.left,my=e.clientY-box.top;
+  tip.style.left=(mx>box.width*.6?mx-280:mx+16)+'px';
+  tip.style.top=(my>box.height*.6?my-tip.offsetHeight-16:my+8)+'px';
+  tip.classList.add('show');
+}
+function hideTip(){document.getElementById('mapTip').classList.remove('show')}
+function setMapFilter(f,btn){mapFilter=f;btn.parentElement.querySelectorAll('.pill').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderMap()}
+
+/* ===== TIMELINE ===== */
+function renderTimeline(){
+  const q=(document.getElementById('tlSearch')?.value||'').toLowerCase();
+  let events=D.timeline.filter(e=>{
+    if(q&&!e.name.toLowerCase().includes(q)&&!e.description.toLowerCase().includes(q))return false;
+    if(tlFilter==='signal'&&e.signal.score<7)return false;
+    if(tlFilter==='paradigm'&&e.signal.score<9)return false;
+    return true;
+  });
+  events.sort((a,b)=>new Date(a.date)-new Date(b.date));
+
+  let html='<div class="tl-line">';
+  let curYear='';
+  events.forEach(e=>{
+    const yr=e.date.slice(0,4);
+    if(yr!==curYear){curYear=yr;html+=`<div class="tl-year">${yr}</div>`}
+    const sc=e.signal.score;
+    const cls=sc>=9?'s10 s9':sc>=7?'s8 s7':sc>=5?'s6 s5':'';
+    const sig=sc>=9?'high':sc>=7?'mid':'low';
+    html+=`<div class="tl-event ${cls}">
+      <div class="tl-head"><span class="tl-name">${e.name}</span><span class="tl-date">${e.date}</span></div>
+      <div class="tl-desc">${e.description}</div>
+      <span class="tl-signal ${sig}">Signal: ${sc}/10 \u2014 ${e.signal.category.replace(/_/g,' ')}</span>
     </div>`;
   });
-
-  content.innerHTML = html;
-  panel.classList.add('open');
-  activeCity = key;
+  html+='</div>';
+  document.getElementById('tlContainer').innerHTML=html;
 }
+function setTlFilter(f,btn){tlFilter=f;btn.parentElement.querySelectorAll('.pill').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderTimeline()}
 
-function closePanel() {
-  document.getElementById('detailPanel').classList.remove('open');
-  activeCity = null;
-}
-
-/* ===== MAP FILTER ===== */
-function setMapFilter(filter, btn) {
-  activeFilter = filter;
-  document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  buildMap();
-  filterTable();
-  if (activeCity) openCity(activeCity);
-}
-
-/* ===== COORDINATES DISPLAY ===== */
-document.addEventListener('DOMContentLoaded', () => {
-  const container = document.getElementById('mapContainer');
-  container.addEventListener('mousemove', e => {
-    const rect = container.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width;
-    const py = (e.clientY - rect.top) / rect.height;
-    const lon = (px * 360 - 180).toFixed(1);
-    const lat = (90 - py * 180).toFixed(1);
-    document.getElementById('coords').textContent = `${lat}\u00b0, ${lon}\u00b0`;
-  });
-});
-
-/* ===== TABLE ===== */
-const REGION_ORDER = [...new Set(COMPANIES.map(c => c.region))];
-
-function filterTable() {
-  const q = document.getElementById('search').value.toLowerCase();
-  const filtered = COMPANIES.filter(c => {
-    const s = !q || c.company.toLowerCase().includes(q) || c.models.toLowerCase().includes(q) || c.region.toLowerCase().includes(q) || c.city.toLowerCase().includes(q);
-    const f = activeFilter === 'all' || c.access === activeFilter;
-    return s && f;
+/* ===== MODELS ===== */
+function renderModels(){
+  const q=(document.getElementById('mdSearch')?.value||'').toLowerCase();
+  const families={};
+  D.models.forEach(m=>{
+    if(mdFilter!=='all'&&m.family!==mdFilter)return;
+    if(q&&!m.name.toLowerCase().includes(q)&&!(m.key_capability||'').toLowerCase().includes(q)&&!m.company.toLowerCase().includes(q))return;
+    if(!families[m.family])families[m.family]=[];
+    families[m.family].push(m);
   });
 
-  const el = document.getElementById('tableData');
-  let html = '', count = 0;
+  // Sort families by first model date
+  const sorted=Object.entries(families).sort((a,b)=>new Date(a[1][0].release_date)-new Date(b[1][0].release_date));
 
-  REGION_ORDER.forEach(region => {
-    const items = filtered.filter(c => c.region === region);
-    if (!items.length) return;
-    count += items.length;
+  let html='';
+  sorted.forEach(([fam,models])=>{
+    models.sort((a,b)=>new Date(a.release_date)-new Date(b.release_date));
+    html+=`<div class="family-section">
+      <div class="family-header"><h3>${fam.toUpperCase()}</h3><span class="family-badge">${models.length} models</span></div>
+      <div class="model-tree">${models.map(m=>`
+        <div class="model-node">
+          <span class="mn-name">${m.name}</span>
+          <span class="mn-date">${m.release_date}</span>
+          <span class="mn-params">${m.parameters||'-'}</span>
+          <span class="tag tag-${m.access}">${m.access.replace('-',' ')}</span>
+          <span class="mn-mod">${m.modality}</span>
+          <span class="mn-cap">${m.key_capability||''}</span>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  });
+  document.getElementById('mdContainer').innerHTML=html||'<p style="text-align:center;color:var(--grey);padding:40px">No models match your search.</p>';
+}
+function setMdFilter(f,btn){mdFilter=f;btn.parentElement.querySelectorAll('.pill').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderModels()}
 
-    html += `<div class="region-group">
-      <div class="region-row"><h3>${region}</h3><span class="region-badge">${items.length}</span></div>
-      <table><thead><tr><th>Company</th><th>City</th><th>Models</th><th>Access</th><th>Status</th><th>Notes</th></tr></thead>
-      <tbody>${items.map(c => `<tr>
-        <td class="td-name">${c.company}</td>
-        <td style="font-size:12px;color:var(--grey)">${c.city}</td>
-        <td class="td-model">${c.models}</td>
-        <td><span class="td-tag ${c.access}">${c.access.replace('-',' ')}</span></td>
-        <td class="td-status">${c.status}</td>
-        <td class="td-notes">${c.notes}</td>
-      </tr>`).join('')}</tbody></table></div>`;
+/* ===== COMPANIES ===== */
+function renderCompanies(){
+  const q=(document.getElementById('coSearch')?.value||'').toLowerCase();
+  let cos=D.companies.filter(c=>{
+    if(coFilter!=='all'&&c.type!==coFilter)return false;
+    if(q&&!c.name.toLowerCase().includes(q)&&!(c.model_families||[]).join(' ').toLowerCase().includes(q)&&!(c.hq?.city||'').toLowerCase().includes(q))return false;
+    return true;
+  });
+  cos.sort((a,b)=>{
+    const va=parseFloat((a.valuation||'$0').replace(/[^0-9.]/g,''))||0;
+    const vb=parseFloat((b.valuation||'$0').replace(/[^0-9.]/g,''))||0;
+    return vb-va;
   });
 
-  el.innerHTML = html;
-  document.getElementById('nav-count').textContent = count;
+  document.getElementById('coGrid').innerHTML=cos.map(c=>{
+    const lastFund=c.funding?.length?c.funding[c.funding.length-1]:null;
+    return `<div class="co-card">
+      <div class="co-name">${c.name}</div>
+      <div class="co-meta">${c.hq?.city||''}, ${c.hq?.country||''} \u2014 Founded ${c.founded||'?'}</div>
+      <div class="co-models">${(c.model_families||c.models_used||[]).join(' \u2022 ')||'—'}</div>
+      ${c.valuation?`<div class="co-val">${c.valuation}</div>`:''}
+      ${lastFund?`<div class="co-funding">Last round: ${lastFund.amount} (${lastFund.round}, ${lastFund.date})</div>`:''}
+      <span class="co-type ${c.type}">${c.type}</span>
+    </div>`;
+  }).join('')||'<p style="color:var(--grey);padding:40px;grid-column:1/-1;text-align:center">No companies match.</p>';
 }
+function setCoFilter(f,btn){coFilter=f;btn.parentElement.querySelectorAll('.pill').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderCompanies()}
 
 /* ===== INIT ===== */
-buildMap();
-filterTable();
+init();
 </script>
 </body>
 </html>

@@ -1,0 +1,807 @@
+{
+  "$schema": "AI Intel — Model Lineage Graph",
+  "version": "1.0.0",
+  "last_updated": "2026-03-20",
+  "edge_type": "derived_from",
+  "direction": "source (child) → target (parent)",
+  "total_edges": 89,
+  "edges": [
+
+    {
+      "id": "gpt2-from-gpt1",
+      "type": "derived_from",
+      "source": "openai-gpt-2",
+      "target": "openai-gpt-1",
+      "start_date": "2019-02-14",
+      "end_date": null,
+      "relationship_detail": "Scaled GPT-1 architecture 10x (117M → 1.5B params); same autoregressive transformer approach with larger data and compute"
+    },
+    {
+      "id": "gpt3-from-gpt2",
+      "type": "derived_from",
+      "source": "openai-gpt-3",
+      "target": "openai-gpt-2",
+      "start_date": "2020-06-11",
+      "end_date": null,
+      "relationship_detail": "Scaled to 175B parameters; same architecture family but unlocked emergent in-context learning abilities"
+    },
+    {
+      "id": "codex-from-gpt3",
+      "type": "derived_from",
+      "source": "openai-codex",
+      "target": "openai-gpt-3",
+      "start_date": "2021-08-10",
+      "end_date": null,
+      "relationship_detail": "GPT-3 fine-tuned on code from GitHub; 12B parameter variant specialised for code generation"
+    },
+    {
+      "id": "gpt35-from-gpt3",
+      "type": "derived_from",
+      "source": "openai-gpt-3.5-turbo",
+      "target": "openai-gpt-3",
+      "start_date": "2022-11-30",
+      "end_date": null,
+      "relationship_detail": "GPT-3 family with RLHF alignment and instruction tuning; powered ChatGPT launch"
+    },
+    {
+      "id": "gpt4-from-gpt35",
+      "type": "derived_from",
+      "source": "openai-gpt-4",
+      "target": "openai-gpt-3.5-turbo",
+      "start_date": "2023-03-14",
+      "end_date": null,
+      "relationship_detail": "Next-generation architecture (rumoured MoE); multimodal input; massive reasoning improvement over GPT-3.5"
+    },
+    {
+      "id": "gpt4turbo-from-gpt4",
+      "type": "derived_from",
+      "source": "openai-gpt-4-turbo",
+      "target": "openai-gpt-4",
+      "start_date": "2023-11-06",
+      "end_date": null,
+      "relationship_detail": "Optimised GPT-4 for speed and cost; 128K context; updated training data"
+    },
+    {
+      "id": "gpt4o-from-gpt4",
+      "type": "derived_from",
+      "source": "openai-gpt-4o",
+      "target": "openai-gpt-4",
+      "start_date": "2024-05-13",
+      "end_date": null,
+      "relationship_detail": "Native multimodal variant of GPT-4; unified text/image/audio processing in single model"
+    },
+    {
+      "id": "gpt4omini-from-gpt4o",
+      "type": "derived_from",
+      "source": "openai-gpt-4o-mini",
+      "target": "openai-gpt-4o",
+      "start_date": "2024-07-18",
+      "end_date": null,
+      "relationship_detail": "Distilled/smaller variant of GPT-4o optimised for cost; replaced GPT-3.5 Turbo as default"
+    },
+    {
+      "id": "o1preview-from-gpt4",
+      "type": "derived_from",
+      "source": "openai-o1-preview",
+      "target": "openai-gpt-4",
+      "start_date": "2024-09-12",
+      "end_date": null,
+      "relationship_detail": "GPT-4 base with chain-of-thought reasoning trained via RL; new inference-time compute paradigm"
+    },
+    {
+      "id": "o1mini-from-o1preview",
+      "type": "derived_from",
+      "source": "openai-o1-mini",
+      "target": "openai-o1-preview",
+      "start_date": "2024-09-12",
+      "end_date": null,
+      "relationship_detail": "Smaller, faster reasoning model optimised for STEM; same reasoning approach at lower cost"
+    },
+    {
+      "id": "o1-from-o1preview",
+      "type": "derived_from",
+      "source": "openai-o1",
+      "target": "openai-o1-preview",
+      "start_date": "2024-12-05",
+      "end_date": null,
+      "relationship_detail": "Full release of reasoning model; improved accuracy and vision support over preview"
+    },
+    {
+      "id": "o3mini-from-o1",
+      "type": "derived_from",
+      "source": "openai-o3-mini",
+      "target": "openai-o1",
+      "start_date": "2025-01-31",
+      "end_date": null,
+      "relationship_detail": "Next-gen cost-efficient reasoning model; adjustable reasoning effort levels"
+    },
+    {
+      "id": "o3-from-o1",
+      "type": "derived_from",
+      "source": "openai-o3",
+      "target": "openai-o1",
+      "start_date": "2025-04-16",
+      "end_date": null,
+      "relationship_detail": "Full-scale next-gen reasoning model with multimodal input, tool use, and agentic capabilities"
+    },
+    {
+      "id": "o4mini-from-o3",
+      "type": "derived_from",
+      "source": "openai-o4-mini",
+      "target": "openai-o3",
+      "start_date": "2025-04-16",
+      "end_date": null,
+      "relationship_detail": "Cost-efficient variant of o3-generation reasoning; tool use and code execution"
+    },
+    {
+      "id": "gpt5-from-gpt4o",
+      "type": "derived_from",
+      "source": "openai-gpt-5",
+      "target": "openai-gpt-4o",
+      "start_date": "2025-06-01",
+      "end_date": null,
+      "relationship_detail": "Unified next-generation model merging GPT multimodal and o-series reasoning capabilities"
+    },
+
+
+    {
+      "id": "claude1.3-from-claude1",
+      "type": "derived_from",
+      "source": "anthropic-claude-1.3",
+      "target": "anthropic-claude-1",
+      "start_date": "2023-05-11",
+      "end_date": null,
+      "relationship_detail": "Iterative improvement on Claude 1; better instruction following and reduced hallucinations"
+    },
+    {
+      "id": "claude2-from-claude1.3",
+      "type": "derived_from",
+      "source": "anthropic-claude-2",
+      "target": "anthropic-claude-1.3",
+      "start_date": "2023-07-11",
+      "end_date": null,
+      "relationship_detail": "Major upgrade with 200K context window; improved coding and math; consumer access"
+    },
+    {
+      "id": "claude2.1-from-claude2",
+      "type": "derived_from",
+      "source": "anthropic-claude-2.1",
+      "target": "anthropic-claude-2",
+      "start_date": "2023-11-21",
+      "end_date": null,
+      "relationship_detail": "Reduced hallucination by 50%; added tool use; improved long-context accuracy"
+    },
+    {
+      "id": "claude3-opus-from-claude2.1",
+      "type": "derived_from",
+      "source": "anthropic-claude-3-opus",
+      "target": "anthropic-claude-2.1",
+      "start_date": "2024-03-04",
+      "end_date": null,
+      "relationship_detail": "Generation 3 flagship; new architecture with vision input; tiered model family (Opus/Sonnet/Haiku)"
+    },
+    {
+      "id": "claude3-sonnet-from-claude2.1",
+      "type": "derived_from",
+      "source": "anthropic-claude-3-sonnet",
+      "target": "anthropic-claude-2.1",
+      "start_date": "2024-03-04",
+      "end_date": null,
+      "relationship_detail": "Generation 3 balanced tier; same architecture family as Opus at lower cost"
+    },
+    {
+      "id": "claude3-haiku-from-claude2.1",
+      "type": "derived_from",
+      "source": "anthropic-claude-3-haiku",
+      "target": "anthropic-claude-2.1",
+      "start_date": "2024-03-13",
+      "end_date": null,
+      "relationship_detail": "Generation 3 fast tier; optimised for speed and cost; smallest Claude 3 variant"
+    },
+    {
+      "id": "claude3.5-sonnet-from-claude3-sonnet",
+      "type": "derived_from",
+      "source": "anthropic-claude-3.5-sonnet",
+      "target": "anthropic-claude-3-sonnet",
+      "start_date": "2024-06-20",
+      "end_date": null,
+      "relationship_detail": "Exceeded Claude 3 Opus at Sonnet pricing; added computer use; became most popular Claude model"
+    },
+    {
+      "id": "claude3.5-haiku-from-claude3-haiku",
+      "type": "derived_from",
+      "source": "anthropic-claude-3.5-haiku",
+      "target": "anthropic-claude-3-haiku",
+      "start_date": "2024-10-22",
+      "end_date": null,
+      "relationship_detail": "Matched Claude 3 Sonnet performance at Haiku pricing; generation 3.5 fast tier"
+    },
+    {
+      "id": "claude3.5-opus-from-claude3-opus",
+      "type": "derived_from",
+      "source": "anthropic-claude-3.5-opus",
+      "target": "anthropic-claude-3-opus",
+      "start_date": "2025-02-01",
+      "end_date": null,
+      "relationship_detail": "Generation 3.5 flagship; extended thinking capabilities; strongest Claude until generation 4"
+    },
+    {
+      "id": "claude4-opus-from-claude3.5-opus",
+      "type": "derived_from",
+      "source": "anthropic-claude-4-opus",
+      "target": "anthropic-claude-3.5-opus",
+      "start_date": "2025-06-01",
+      "end_date": null,
+      "relationship_detail": "Generation 4 flagship; significant architecture improvements; agentic coding capabilities"
+    },
+    {
+      "id": "claude4-sonnet-from-claude3.5-sonnet",
+      "type": "derived_from",
+      "source": "anthropic-claude-4-sonnet",
+      "target": "anthropic-claude-3.5-sonnet",
+      "start_date": "2025-06-01",
+      "end_date": null,
+      "relationship_detail": "Generation 4 balanced tier; matched Claude 3.5 Opus at lower cost"
+    },
+    {
+      "id": "claude4.5-haiku-from-claude3.5-haiku",
+      "type": "derived_from",
+      "source": "anthropic-claude-4.5-haiku",
+      "target": "anthropic-claude-3.5-haiku",
+      "start_date": "2025-10-01",
+      "end_date": null,
+      "relationship_detail": "Generation 4.5 fast tier; continued Haiku lineage with improved capability"
+    },
+    {
+      "id": "claude4.5-sonnet-from-claude4-sonnet",
+      "type": "derived_from",
+      "source": "anthropic-claude-4.5-sonnet",
+      "target": "anthropic-claude-4-sonnet",
+      "start_date": "2025-11-01",
+      "end_date": null,
+      "relationship_detail": "Generation 4.5 balanced tier; hybrid reasoning combining extended thinking with standard generation"
+    },
+    {
+      "id": "claude4.6-opus-from-claude4-opus",
+      "type": "derived_from",
+      "source": "anthropic-claude-4.6-opus",
+      "target": "anthropic-claude-4-opus",
+      "start_date": "2026-01-01",
+      "end_date": null,
+      "relationship_detail": "Generation 4.6 flagship; 1M context window; strongest Claude model; powers Claude Code"
+    },
+    {
+      "id": "claude4.6-sonnet-from-claude4.5-sonnet",
+      "type": "derived_from",
+      "source": "anthropic-claude-4.6-sonnet",
+      "target": "anthropic-claude-4.5-sonnet",
+      "start_date": "2026-01-01",
+      "end_date": null,
+      "relationship_detail": "Generation 4.6 balanced tier; fast output mode; strong coding at mid-tier pricing"
+    },
+
+
+    {
+      "id": "palm-from-google-research",
+      "type": "derived_from",
+      "source": "google-palm",
+      "target": "google-t5",
+      "start_date": "2022-04-04",
+      "end_date": null,
+      "relationship_detail": "Google's progression from encoder-decoder (T5) to decoder-only at scale; incorporated lessons from BERT/T5 research"
+    },
+    {
+      "id": "palm2-from-palm",
+      "type": "derived_from",
+      "source": "google-palm-2",
+      "target": "google-palm",
+      "start_date": "2023-05-10",
+      "end_date": null,
+      "relationship_detail": "Compute-optimal training (Chinchilla scaling); improved multilingual and reasoning over PaLM"
+    },
+    {
+      "id": "gemini1-pro-from-palm2",
+      "type": "derived_from",
+      "source": "google-gemini-1.0-pro",
+      "target": "google-palm-2",
+      "start_date": "2023-12-06",
+      "end_date": null,
+      "relationship_detail": "Native multimodal model replacing PaLM 2; combined Google Brain and DeepMind research"
+    },
+    {
+      "id": "gemini1-ultra-from-palm2",
+      "type": "derived_from",
+      "source": "google-gemini-1.0-ultra",
+      "target": "google-palm-2",
+      "start_date": "2024-02-08",
+      "end_date": null,
+      "relationship_detail": "Largest Gemini 1.0 variant; first to exceed human on MMLU; flagship replacing PaLM 2"
+    },
+    {
+      "id": "gemini1.5-pro-from-gemini1-pro",
+      "type": "derived_from",
+      "source": "google-gemini-1.5-pro",
+      "target": "google-gemini-1.0-pro",
+      "start_date": "2024-02-15",
+      "end_date": null,
+      "relationship_detail": "MoE architecture enabling 1M token context; breakthrough in long-context capability"
+    },
+    {
+      "id": "gemini1.5-flash-from-gemini1.5-pro",
+      "type": "derived_from",
+      "source": "google-gemini-1.5-flash",
+      "target": "google-gemini-1.5-pro",
+      "start_date": "2024-05-14",
+      "end_date": null,
+      "relationship_detail": "Distilled from Gemini 1.5 Pro for speed and efficiency; retained long-context"
+    },
+    {
+      "id": "gemini2-flash-from-gemini1.5-flash",
+      "type": "derived_from",
+      "source": "google-gemini-2.0-flash",
+      "target": "google-gemini-1.5-flash",
+      "start_date": "2024-12-11",
+      "end_date": null,
+      "relationship_detail": "Next-generation Flash with native tool use and multimodal output"
+    },
+    {
+      "id": "gemini2-flash-thinking-from-gemini2-flash",
+      "type": "derived_from",
+      "source": "google-gemini-2.0-flash-thinking",
+      "target": "google-gemini-2.0-flash",
+      "start_date": "2024-12-19",
+      "end_date": null,
+      "relationship_detail": "Added chain-of-thought reasoning to Gemini 2.0 Flash; Google's answer to o1"
+    },
+    {
+      "id": "gemini2.5-pro-from-gemini2-flash",
+      "type": "derived_from",
+      "source": "google-gemini-2.5-pro",
+      "target": "google-gemini-2.0-flash",
+      "start_date": "2025-03-25",
+      "end_date": null,
+      "relationship_detail": "Flagship generation 2.5 with built-in reasoning/thinking; unified standard and reasoning modes"
+    },
+    {
+      "id": "gemini2.5-flash-from-gemini2.5-pro",
+      "type": "derived_from",
+      "source": "google-gemini-2.5-flash",
+      "target": "google-gemini-2.5-pro",
+      "start_date": "2025-04-17",
+      "end_date": null,
+      "relationship_detail": "Cost-efficient variant with thinking budgets; distilled from 2.5 Pro"
+    },
+    {
+      "id": "veo2-from-veo",
+      "type": "derived_from",
+      "source": "google-veo-2",
+      "target": "google-veo",
+      "start_date": "2024-12-16",
+      "end_date": null,
+      "relationship_detail": "Upgraded to 4K resolution; improved physics and longer clips"
+    },
+
+
+    {
+      "id": "llama2-from-llama1",
+      "type": "derived_from",
+      "source": "meta-llama-2",
+      "target": "meta-llama-1",
+      "start_date": "2023-07-18",
+      "end_date": null,
+      "relationship_detail": "40% more training data (2T tokens); RLHF-tuned chat variants; commercial license"
+    },
+    {
+      "id": "codellama-from-llama2",
+      "type": "derived_from",
+      "source": "meta-codellama",
+      "target": "meta-llama-2",
+      "start_date": "2023-08-24",
+      "end_date": null,
+      "relationship_detail": "Llama 2 further trained on 500B code tokens; added infilling and 100K context for code"
+    },
+    {
+      "id": "llama3-from-llama2",
+      "type": "derived_from",
+      "source": "meta-llama-3",
+      "target": "meta-llama-2",
+      "start_date": "2024-04-18",
+      "end_date": null,
+      "relationship_detail": "New 128K vocabulary tokenizer; 15T training tokens (7.5x Llama 2); GQA attention"
+    },
+    {
+      "id": "llama3.1-from-llama3",
+      "type": "derived_from",
+      "source": "meta-llama-3.1",
+      "target": "meta-llama-3",
+      "start_date": "2024-07-23",
+      "end_date": null,
+      "relationship_detail": "Scaled to 405B (first open 400B+ model); 128K context; tool use support"
+    },
+    {
+      "id": "llama3.2-from-llama3.1",
+      "type": "derived_from",
+      "source": "meta-llama-3.2",
+      "target": "meta-llama-3.1",
+      "start_date": "2024-09-25",
+      "end_date": null,
+      "relationship_detail": "Added vision capability (11B/90B variants); lightweight 1B/3B edge models"
+    },
+    {
+      "id": "llama3.3-from-llama3.2",
+      "type": "derived_from",
+      "source": "meta-llama-3.3",
+      "target": "meta-llama-3.2",
+      "start_date": "2024-12-06",
+      "end_date": null,
+      "relationship_detail": "70B matching 405B performance through improved training; massive efficiency gain"
+    },
+    {
+      "id": "llama4-scout-from-llama3.3",
+      "type": "derived_from",
+      "source": "meta-llama-4-scout",
+      "target": "meta-llama-3.3",
+      "start_date": "2025-09-01",
+      "end_date": null,
+      "relationship_detail": "New MoE architecture (17B active of 109B); 10M context; natively multimodal"
+    },
+    {
+      "id": "llama4-maverick-from-llama3.3",
+      "type": "derived_from",
+      "source": "meta-llama-4-maverick",
+      "target": "meta-llama-3.3",
+      "start_date": "2025-09-01",
+      "end_date": null,
+      "relationship_detail": "Larger MoE variant (400B total, 17B active); competitive with GPT-4o"
+    },
+    {
+      "id": "alpaca-from-llama1",
+      "type": "derived_from",
+      "source": "stanford-alpaca",
+      "target": "meta-llama-1",
+      "start_date": "2023-03-13",
+      "end_date": null,
+      "relationship_detail": "LLaMA 7B instruction-tuned on 52K GPT-generated examples; proved cheap fine-tuning viable"
+    },
+    {
+      "id": "vicuna-from-llama1",
+      "type": "derived_from",
+      "source": "lmsys-vicuna",
+      "target": "meta-llama-1",
+      "start_date": "2023-03-30",
+      "end_date": null,
+      "relationship_detail": "LLaMA 13B fine-tuned on ShareGPT conversations; pioneered LLM-as-judge evaluation"
+    },
+    {
+      "id": "nemotron-from-llama3",
+      "type": "derived_from",
+      "source": "nvidia-nemotron",
+      "target": "meta-llama-3",
+      "start_date": "2024-06-14",
+      "end_date": null,
+      "relationship_detail": "Built on Llama architecture with NVIDIA custom training; optimised for synthetic data generation"
+    },
+
+
+    {
+      "id": "pythia-from-gpt-neox",
+      "type": "derived_from",
+      "source": "eleutherai-pythia",
+      "target": "eleutherai-gpt-neox",
+      "start_date": "2023-02-13",
+      "end_date": null,
+      "relationship_detail": "Same research group; used GPT-NeoX architecture for controlled study of training dynamics across scales"
+    },
+    {
+      "id": "falcon180b-from-falcon",
+      "type": "derived_from",
+      "source": "tii-falcon-180b",
+      "target": "tii-falcon",
+      "start_date": "2023-09-06",
+      "end_date": null,
+      "relationship_detail": "Scaled Falcon architecture to 180B; 3.5T training tokens on RefinedWeb"
+    },
+
+
+    {
+      "id": "mixtral-8x7b-from-mistral7b",
+      "type": "derived_from",
+      "source": "mistral-mixtral-8x7b",
+      "target": "mistral-7b",
+      "start_date": "2023-12-11",
+      "end_date": null,
+      "relationship_detail": "MoE architecture using Mistral 7B as expert basis; 8 experts with 2 active per token"
+    },
+    {
+      "id": "mixtral-8x22b-from-mixtral-8x7b",
+      "type": "derived_from",
+      "source": "mistral-mixtral-8x22b",
+      "target": "mistral-mixtral-8x7b",
+      "start_date": "2024-04-17",
+      "end_date": null,
+      "relationship_detail": "Scaled MoE to 22B per expert; stronger multilingual and code; function calling"
+    },
+    {
+      "id": "mistral-large-from-mistral7b",
+      "type": "derived_from",
+      "source": "mistral-large",
+      "target": "mistral-7b",
+      "start_date": "2024-02-26",
+      "end_date": null,
+      "relationship_detail": "First closed Mistral model; dense architecture scaled up from Mistral 7B lineage"
+    },
+    {
+      "id": "mistral-large2-from-mistral-large",
+      "type": "derived_from",
+      "source": "mistral-large-2",
+      "target": "mistral-large",
+      "start_date": "2024-07-24",
+      "end_date": null,
+      "relationship_detail": "Scaled to 123B dense; 128K context; open-weight release; competitive with frontier models"
+    },
+    {
+      "id": "codestral-from-mistral7b",
+      "type": "derived_from",
+      "source": "mistral-codestral",
+      "target": "mistral-7b",
+      "start_date": "2024-05-29",
+      "end_date": null,
+      "relationship_detail": "Code-specialised Mistral derivative; 80+ languages; fill-in-the-middle support"
+    },
+    {
+      "id": "mistral-small-from-mistral7b",
+      "type": "derived_from",
+      "source": "mistral-small",
+      "target": "mistral-7b",
+      "start_date": "2024-09-18",
+      "end_date": null,
+      "relationship_detail": "Cost-efficient derivative of Mistral architecture; optimised for structured output"
+    },
+
+
+    {
+      "id": "qwen1.5-from-qwen",
+      "type": "derived_from",
+      "source": "alibaba-qwen-1.5",
+      "target": "alibaba-qwen",
+      "start_date": "2024-02-05",
+      "end_date": null,
+      "relationship_detail": "Improved alignment and unified chat/base; scaled to 110B"
+    },
+    {
+      "id": "qwen2-from-qwen1.5",
+      "type": "derived_from",
+      "source": "alibaba-qwen-2",
+      "target": "alibaba-qwen-1.5",
+      "start_date": "2024-06-07",
+      "end_date": null,
+      "relationship_detail": "New architecture with GQA; 29 languages; competitive with Llama 3"
+    },
+    {
+      "id": "qwen2.5-from-qwen2",
+      "type": "derived_from",
+      "source": "alibaba-qwen-2.5",
+      "target": "alibaba-qwen-2",
+      "start_date": "2024-09-19",
+      "end_date": null,
+      "relationship_detail": "18T training tokens; strong coding and math specialisations; 0.5B-72B range"
+    },
+
+
+    {
+      "id": "deepseek-v2-from-v1",
+      "type": "derived_from",
+      "source": "deepseek-v2",
+      "target": "deepseek-v1",
+      "start_date": "2024-05-07",
+      "end_date": null,
+      "relationship_detail": "New MoE + Multi-head Latent Attention architecture; 236B total (21B active)"
+    },
+    {
+      "id": "deepseek-coder-from-v1",
+      "type": "derived_from",
+      "source": "deepseek-coder",
+      "target": "deepseek-v1",
+      "start_date": "2023-11-02",
+      "end_date": null,
+      "relationship_detail": "Code-specialised variant trained on 2T code tokens"
+    },
+    {
+      "id": "deepseek-coder-v2-from-v2",
+      "type": "derived_from",
+      "source": "deepseek-coder-v2",
+      "target": "deepseek-v2",
+      "start_date": "2024-06-17",
+      "end_date": null,
+      "relationship_detail": "V2 architecture specialised for code; 338 programming languages; matched GPT-4 Turbo on code"
+    },
+    {
+      "id": "deepseek-v3-from-v2",
+      "type": "derived_from",
+      "source": "deepseek-v3",
+      "target": "deepseek-v2",
+      "start_date": "2024-12-26",
+      "end_date": null,
+      "relationship_detail": "Scaled MoE to 671B (37B active); trained for $5.5M; proved cost-efficient frontier training"
+    },
+    {
+      "id": "deepseek-r1-from-v3",
+      "type": "derived_from",
+      "source": "deepseek-r1",
+      "target": "deepseek-v3",
+      "start_date": "2025-01-20",
+      "end_date": null,
+      "relationship_detail": "V3 base with RL-trained chain-of-thought reasoning; open-source reasoning model matching o1"
+    },
+
+
+    {
+      "id": "yi1.5-from-yi",
+      "type": "derived_from",
+      "source": "01ai-yi-1.5",
+      "target": "01ai-yi",
+      "start_date": "2024-05-13",
+      "end_date": null,
+      "relationship_detail": "Improved training and 200K context; stronger math and coding"
+    },
+    {
+      "id": "phi3-from-phi2",
+      "type": "derived_from",
+      "source": "microsoft-phi-3",
+      "target": "microsoft-phi-2",
+      "start_date": "2024-04-23",
+      "end_date": null,
+      "relationship_detail": "Continued textbook-quality data approach at larger scale; 3.8B mini matched Mixtral"
+    },
+    {
+      "id": "phi4-from-phi3",
+      "type": "derived_from",
+      "source": "microsoft-phi-4",
+      "target": "microsoft-phi-3",
+      "start_date": "2024-12-12",
+      "end_date": null,
+      "relationship_detail": "Synthetic data focused; strong math and reasoning at 14B"
+    },
+    {
+      "id": "command-r-plus-from-command-r",
+      "type": "derived_from",
+      "source": "cohere-command-r-plus",
+      "target": "cohere-command-r",
+      "start_date": "2024-04-04",
+      "end_date": null,
+      "relationship_detail": "Scaled flagship (104B); enhanced multi-step tool use and enterprise RAG"
+    },
+    {
+      "id": "jamba1.5-from-jamba",
+      "type": "derived_from",
+      "source": "ai21-jamba-1.5",
+      "target": "ai21-jamba",
+      "start_date": "2024-08-22",
+      "end_date": null,
+      "relationship_detail": "Scaled hybrid SSM-Transformer architecture; Mini and Large variants"
+    },
+    {
+      "id": "grok2-from-grok1",
+      "type": "derived_from",
+      "source": "xai-grok-2",
+      "target": "xai-grok-1",
+      "start_date": "2024-08-13",
+      "end_date": null,
+      "relationship_detail": "Added vision; FLUX integration for image generation; competitive with GPT-4o"
+    },
+    {
+      "id": "grok3-from-grok2",
+      "type": "derived_from",
+      "source": "xai-grok-3",
+      "target": "xai-grok-2",
+      "start_date": "2025-02-17",
+      "end_date": null,
+      "relationship_detail": "Trained on 200K Colossus GPU cluster; DeepSearch and reasoning modes"
+    },
+
+
+    {
+      "id": "dalle2-from-dalle1",
+      "type": "derived_from",
+      "source": "openai-dall-e-2",
+      "target": "openai-dall-e-1",
+      "start_date": "2022-04-06",
+      "end_date": null,
+      "relationship_detail": "Switched from transformer-VAE to CLIP-guided diffusion; inpainting/outpainting capabilities"
+    },
+    {
+      "id": "dalle3-from-dalle2",
+      "type": "derived_from",
+      "source": "openai-dall-e-3",
+      "target": "openai-dall-e-2",
+      "start_date": "2023-09-20",
+      "end_date": null,
+      "relationship_detail": "ChatGPT-native integration; dramatically improved prompt adherence; text rendering"
+    },
+    {
+      "id": "sd2-from-sd1.5",
+      "type": "derived_from",
+      "source": "stability-sd-2",
+      "target": "stability-sd-1.5",
+      "start_date": "2022-11-24",
+      "end_date": null,
+      "relationship_detail": "768px native resolution; new CLIP encoder; depth-to-image capabilities"
+    },
+    {
+      "id": "sdxl-from-sd2",
+      "type": "derived_from",
+      "source": "stability-sdxl",
+      "target": "stability-sd-2",
+      "start_date": "2023-07-26",
+      "end_date": null,
+      "relationship_detail": "1024px native; two-stage pipeline; 3.5B parameters; major quality improvement"
+    },
+    {
+      "id": "sd3-from-sdxl",
+      "type": "derived_from",
+      "source": "stability-sd-3",
+      "target": "stability-sdxl",
+      "start_date": "2024-02-22",
+      "end_date": null,
+      "relationship_detail": "New MMDiT (diffusion transformer) architecture replacing U-Net; flow matching training"
+    },
+    {
+      "id": "flux-from-sdxl",
+      "type": "derived_from",
+      "source": "bfl-flux",
+      "target": "stability-sdxl",
+      "start_date": "2024-08-01",
+      "end_date": null,
+      "relationship_detail": "Created by original Stable Diffusion researchers at Black Forest Labs; rectified flow transformers; spiritual successor"
+    },
+    {
+      "id": "midjourney-v6-from-v5",
+      "type": "derived_from",
+      "source": "midjourney-v6",
+      "target": "midjourney-v5",
+      "start_date": "2023-12-21",
+      "end_date": null,
+      "relationship_detail": "Improved prompt understanding; text generation in images; more coherent compositions"
+    },
+
+
+    {
+      "id": "gen2-from-gen1",
+      "type": "derived_from",
+      "source": "runway-gen-2",
+      "target": "runway-gen-1",
+      "start_date": "2023-06-07",
+      "end_date": null,
+      "relationship_detail": "Evolved from video-to-video to text-to-video generation; multi-modal inputs"
+    },
+    {
+      "id": "gen3-from-gen2",
+      "type": "derived_from",
+      "source": "runway-gen-3",
+      "target": "runway-gen-2",
+      "start_date": "2024-06-17",
+      "end_date": null,
+      "relationship_detail": "Switched to diffusion transformer architecture; major quality and consistency leap"
+    },
+    {
+      "id": "veo2-from-veo",
+      "type": "derived_from",
+      "source": "google-veo-2",
+      "target": "google-veo",
+      "start_date": "2024-12-16",
+      "end_date": null,
+      "relationship_detail": "4K resolution upgrade; improved physics understanding; longer clips"
+    },
+
+
+    {
+      "id": "suno-v3.5-from-v3",
+      "type": "derived_from",
+      "source": "suno-v3.5",
+      "target": "suno-v3",
+      "start_date": "2024-06-22",
+      "end_date": null,
+      "relationship_detail": "Extended to 4-minute songs; improved vocal quality and lyric adherence"
+    }
+  ]
+}
